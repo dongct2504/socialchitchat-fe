@@ -1,0 +1,47 @@
+.blog-header-logo {
+    font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+    font-size: 1.65rem;
+}
+
+.logo {
+    max-height: 40px;
+}
+
+.nav-link.active {
+    color: blueviolet;
+    font-weight: bold;
+}
+
+.message-no {
+    position: absolute;
+    min-height: 20px;
+    min-width: 20px;
+    border-radius: 60%;
+    font-size: 0.80em;
+    background: blueviolet;
+    color: white;
+    text-align: center;
+    top: -5px;
+    right: -2px;
+}
+
+@media (max-width: 992px) {
+    .navbar-nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .navbar-nav .nav-item {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .ms-auto {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+    }
+}

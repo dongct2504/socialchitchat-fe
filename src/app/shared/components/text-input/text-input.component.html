@@ -1,0 +1,34 @@
+<div class="form-floating mb-3">
+    <input
+        [formControl]="control"
+        type="{{type}}"
+        class="form-control"
+        id="{{label}}"
+        placeholder="{{label}}"
+        [class.is-invalid]="control.touched && control.invalid" />
+    <label for="{{label}}">{{label}}</label>
+
+    <div 
+        class="invalid-feedback"
+        *ngIf="control.errors?.['required']">
+        Vui lòng nhập {{label}}.
+    </div>
+
+    <div 
+        class="invalid-feedback"
+        *ngIf="control.errors?.['minlength']">
+        Vui lòng nhập ít nhất {{control.errors?.['minlength']?.['requiredLength']}} kí tự.
+    </div>
+
+    <div 
+        class="invalid-feedback"
+        *ngIf="control.errors?.['maxlength']">
+        Độ dài không vượt quá {{control.errors?.['maxlength']?.['requiredLength']}} kí tự.
+    </div>
+
+    <div 
+        class="invalid-feedback"
+        *ngIf="control.errors?.['isMatching']">
+        Mật khẩu không trùng khớp.
+    </div>
+</div>

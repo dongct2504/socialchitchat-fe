@@ -1,1 +1,77 @@
-<p>nav-bar works!</p>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-sm fixed-top">
+    <div class="container-fluid">
+        <ng-container *ngIf="(currentUser$ | async) === null">
+            <a class="navbar-brand d-flex align-items-center" routerLink="/">
+                <img src="/assets/images/logo.png" alt="logo" class="logo me-2">
+                <span class="blog-header-logo">DatingLove</span>
+            </a>
+        </ng-container>
+        <ng-container *ngIf="currentUser$ | async">
+            <a class="navbar-brand d-flex align-items-center" routerLink="/home">
+                <img src="/assets/images/logo.png" alt="logo" class="logo me-2">
+                <span class="blog-header-logo">DatingLove</span>
+            </a>
+        </ng-container>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+            aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+            <fa-icon [icon]="faBars"></fa-icon>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <!-- <ng-container *ngIf="currentUser$ | async"> -->
+                <!-- Add a spacer div to push the search form to the center -->
+                <div class="d-flex flex-grow-1">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/home" routerLinkActive="active">
+                                <fa-icon [icon]="faHome"></fa-icon> Trang chủ
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" routerLink="/liked" routerLinkActive="active">
+                                <fa-icon [icon]="faThumsbup"></fa-icon> Đã thích
+                            </a>
+                        </li>
+                        <li class="nav-item position-relative">
+                            <a class="nav-link" routerLink="/messages" routerLinkActive="active">
+                                <fa-icon [icon]="faMessage"></fa-icon> Tin nhắn
+                            </a>
+                            <div class="message-no">
+                                20
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            <!-- </ng-container> -->
+
+            <!-- Buttons on the right -->
+            <div class="d-flex ms-auto">
+                <ng-container *ngIf="(currentUser$ | async) === null">
+                    <button class="btn btn-warning me-2" routerLink="/authen/register">Đăng ký</button>
+                    <button class="btn btn-dark me-2" routerLink="/authen/login">Đăng nhập</button>
+                </ng-container>
+
+                <ng-container *ngIf="(currentUser$ | async) as currentUser">
+                    <div class="dropdown ms-3 me-5 d-flex align-items-center" dropdown>
+                        <a class="dropdown-toggle no-underline text-dark me-2"
+                            style="cursor: pointer;" dropdownToggle>
+                            <strong>{{currentUser.userName}}</strong>
+                        </a>
+                        <fa-icon [icon]="faUserCircle" [size]="'2x'"></fa-icon>
+
+                        <div class="dropdown-menu dropdown-menu-right" style="cursor: pointer;" *dropdownMenu>
+                            <a class="dropdown-item d-flex align-items-center py-2" routerLink="/profile">
+                                <fa-icon [icon]="faUser" class="me-3"></fa-icon>Hồ sơ
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item d-flex align-items-center py-2" (click)="logout()">
+                                <fa-icon [icon]="faSignOut" class="me-3"></fa-icon>Đăng xuất
+                            </a>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</nav>
