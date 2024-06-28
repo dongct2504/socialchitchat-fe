@@ -68,13 +68,6 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  // private matchValues(matchTo: string): ValidatorFn {
-  //   return (control: AbstractControl) => {
-  //     // control?.value is confirmPassword, while the other is password
-  //     return control?.value === control?.parent?.controls[matchTo].value ? null : { isMatching: true }
-  //   }
-  // }
-
   private matchValues(matchTo: string): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const formGroup = control?.parent as FormGroup;

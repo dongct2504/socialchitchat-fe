@@ -5,6 +5,7 @@ import { CoreRoutingModule } from './core-routing.module';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     CoreRoutingModule,
-    SharedModule
+    SharedModule,
+    BsDropdownModule
   ],
   exports: [
     NavBarComponent,

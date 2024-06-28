@@ -7,7 +7,10 @@ export class UserParams {
     minAge: number = 16;
     maxAge: number = 99;
 
-    constructor(user: AppUserDto) {
+    constructor() {
+    }
+
+    chooseDisplayGender(user: AppUserDto) {
         switch (user.gender) {
             case 'male':
                 this.gender = 'female';

@@ -5,12 +5,20 @@ import { WelcomeComponent } from './welcome/welcome.component';
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
   {
+    path: 'authen',
+    loadChildren: () => import('./authen/authen.module').then(mod => mod.AuthenModule)
+  },
+  {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)
   },
   {
-    path: 'authen',
-    loadChildren: () => import('./authen/authen.module').then(mod => mod.AuthenModule)
+    path: 'liked',
+    loadChildren: () => import('./liked/liked.module').then(mod => mod.LikedModule)
+  },
+  {
+    path: 'messages',
+    loadChildren: () => import('./messages/messages.module').then(mod => mod.MessagesModule)
   },
   { path: '**', redirectTo: '', pathMatch: 'full' }
 ];

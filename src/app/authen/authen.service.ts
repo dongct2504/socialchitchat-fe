@@ -20,7 +20,7 @@ export class AuthenService {
   }
 
   public login(loginRequest: LoginAppUserDto): Observable<void> {
-    return this.httpClient.post<AuthenticationDto>(`${this.apiUrl}/auth/login`, loginRequest).pipe(
+    return this.httpClient.post<AuthenticationDto>(`${this.apiUrl}/authen/login`, loginRequest).pipe(
       map(res => {
         if (res) {
           const authenDto = res as AuthenticationDto;
@@ -31,11 +31,24 @@ export class AuthenService {
   }
 
   public register(registerRequest: RegisterAppUserDto): Observable<AuthenticationDto> {
-    return this.httpClient.post<AuthenticationDto>(`${this.apiUrl}/auth/register`, registerRequest);
+    return this.httpClient.post<AuthenticationDto>(`${this.apiUrl}/authen/register`, registerRequest);
+  }
+
+  public loadCurrentUser() {
+    const authenJson = localStorage.getItem('datinglove-authen');
+    if (authenJson) {
+      const authen: AuthenticationDto = JSON.parse(authenJson);
+      this.currentUserSource.next(authen.appUserDto);
+    }
+  }
+
+  public logout() {
+    localStorage.removeItem('datinglove-authen');
+    this.currentUserSource.next(null);
   }
 
   private setUser(authenDto: AuthenticationDto) {
-    localStorage.setItem('authen', JSON.stringify(authenDto));
+    localStorage.setItem('datinglove-authen', JSON.stringify(authenDto));
     this.currentUserSource.next(authenDto.appUserDto);
   }
 }
