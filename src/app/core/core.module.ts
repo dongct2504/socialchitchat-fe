@@ -6,6 +6,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 
 @NgModule({
@@ -17,9 +18,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     CommonModule,
     CoreRoutingModule,
     SharedModule,
-    BsDropdownModule
+    BsDropdownModule,
+    NgxSpinnerModule
   ],
   exports: [
+    NgxSpinnerModule,
+
     NavBarComponent,
     FooterComponent
   ]

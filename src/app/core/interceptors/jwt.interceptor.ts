@@ -6,23 +6,21 @@ import {
   HttpInterceptor
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthenticationDto } from 'src/app/shared/models/authenticationDtos/authenticationDto';
+import { AuthenService } from 'src/app/authen/authen.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
-  constructor() {
+  constructor(private authenService: AuthenService) {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const authenJson = localStorage.getItem('datinglove-authen');
+    const token = this.authenService.getToken();
 
-    if (authenJson) {
-      const authen: AuthenticationDto = JSON.parse(authenJson);
-
+    if (token !== '') {
       request = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${authen.token}`
+          Authorization: `Bearer ${token}`
         }
       })
     }

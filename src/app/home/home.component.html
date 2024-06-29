@@ -2,13 +2,13 @@
     <ng-container *ngFor="let user of users">
         <div class="col-lg-2 col-md-4 col-sm-6">
             <div class="card mb-4">
-                <div class="card-img-wrapper" routerLink="/members/{{user.userName}}">
+                <div class="card-img-wrapper" routerLink="/home/{{user.userName}}">
                     <img src="{{user.profilePictureUrl  || './assets/images/user.png'}}" alt="{{user.nickname}}"
                         class="card-img-top">
                 </div>
                 <div class="card-body p-0">
                     <div class="mb-2">
-                        <h5 class="card-title text-center mb-1" routerLink="/members/{{user.userName}}">
+                        <h5 class="card-title text-center mb-1" routerLink="/home/{{user.userName}}">
                             <i class="fa fa-user me-1"></i>{{user.nickname}}
                         </h5>
                         <p class="card-text text-muted text-center">Địa chỉ: {{user.city}}</p>

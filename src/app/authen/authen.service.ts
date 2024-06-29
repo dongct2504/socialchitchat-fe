@@ -24,7 +24,7 @@ export class AuthenService {
       map(res => {
         if (res) {
           const authenDto = res as AuthenticationDto;
-          this.setUser(authenDto);
+          this.setAuthen(authenDto);
         }
       })
     );
@@ -42,12 +42,34 @@ export class AuthenService {
     }
   }
 
+  public getToken(): string {
+    const authenJson = localStorage.getItem('datinglove-authen');
+    if (authenJson) {
+      const authen: AuthenticationDto = JSON.parse(authenJson);
+      return authen.token;
+    }
+    return '';
+  }
+
+  public isLoggedIn(): boolean {
+    return this.currentUserSource.value !== null;
+  }
+
   public logout() {
     localStorage.removeItem('datinglove-authen');
     this.currentUserSource.next(null);
   }
 
-  private setUser(authenDto: AuthenticationDto) {
+  public setUser(userDto: AppUserDto) {
+    const authenDto: AuthenticationDto = {
+      appUserDto: userDto,
+      token: this.getToken()
+    };
+    localStorage.setItem('datinglove-authen', JSON.stringify(authenDto));
+    this.currentUserSource.next(authenDto.appUserDto);
+  }
+
+  private setAuthen(authenDto: AuthenticationDto) {
     localStorage.setItem('datinglove-authen', JSON.stringify(authenDto));
     this.currentUserSource.next(authenDto.appUserDto);
   }

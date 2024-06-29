@@ -7,11 +7,16 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
 import { RouterModule } from '@angular/router';
 import { TextInputComponent } from './components/text-input/text-input.component';
+import { NgxGalleryModule } from '@rybos/ngx-gallery'
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AgePipe } from './pipes/age.pipe'
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 @NgModule({
   declarations: [
-    TextInputComponent
+    TextInputComponent,
+    AgePipe
   ],
   imports: [
     CommonModule,
@@ -22,15 +27,22 @@ import { TextInputComponent } from './components/text-input/text-input.component
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
       preventDuplicates: true
-    })
+    }),
+    NgxGalleryModule,
+    TabsModule,
+    FileUploadModule
   ],
   exports: [
     RouterModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     ToastrModule,
+    NgxGalleryModule,
+    TabsModule,
+    FileUploadModule,
 
-    TextInputComponent
+    TextInputComponent,
+    AgePipe
   ]
 })
 export class SharedModule { }
