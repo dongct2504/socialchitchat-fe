@@ -9,14 +9,17 @@ import { RouterModule } from '@angular/router';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { NgxGalleryModule } from '@rybos/ngx-gallery'
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { AgePipe } from './pipes/age.pipe'
 import { FileUploadModule } from 'ng2-file-upload';
+
+import { AgePipe } from './pipes/age.pipe'
+import { TextAreaComponent } from './components/text-area/text-area.component';
 
 
 @NgModule({
   declarations: [
     TextInputComponent,
-    AgePipe
+    AgePipe,
+    TextAreaComponent
   ],
   imports: [
     CommonModule,
@@ -42,6 +45,7 @@ import { FileUploadModule } from 'ng2-file-upload';
     FileUploadModule,
 
     TextInputComponent,
+    TextAreaComponent,
     AgePipe
   ]
 })

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { faTrash, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FileUploader } from 'ng2-file-upload';
 import { take } from 'rxjs';
 import { AuthenService } from 'src/app/authen/authen.service';
@@ -23,6 +24,9 @@ export class PictureEditComponent {
 
   authenUser?: AppUserDto | null;
 
+  faUpload = faUpload;
+  faTrash = faTrash;
+
   constructor(private authenService: AuthenService, private userService: UserService) {
     this.authenService.currentUser$.pipe(take(1)).subscribe(authenUser => this.authenUser = authenUser);
   }
@@ -40,7 +44,7 @@ export class PictureEditComponent {
 
     if (token !== '') {
       this.uploader = new FileUploader({
-        url: `${this.baseUrl}/users/upload-picture`,
+        url: `${this.baseUrl}/pictures/upload-picture`,
         authToken: `Bearer ${token}`,
         isHTML5: true,
         allowedFileType: ['image'],

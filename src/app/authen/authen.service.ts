@@ -65,8 +65,7 @@ export class AuthenService {
       appUserDto: userDto,
       token: this.getToken()
     };
-    localStorage.setItem('datinglove-authen', JSON.stringify(authenDto));
-    this.currentUserSource.next(authenDto.appUserDto);
+    this.setAuthen(authenDto);
   }
 
   private setAuthen(authenDto: AuthenticationDto) {

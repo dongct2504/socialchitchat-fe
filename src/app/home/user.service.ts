@@ -6,6 +6,7 @@ import { AppUserDto } from '../shared/models/appUserDtos/appUserDto';
 import { PagedList } from '../shared/models/pagedList';
 import { UserParams } from '../shared/models/appUserDtos/userParams';
 import { AppUserDetailDto } from '../shared/models/appUserDtos/appUserDetailDto';
+import { UpdateAppUserDto } from '../shared/models/appUserDtos/updateAppUserDto';
 
 @Injectable({
   providedIn: 'root'
@@ -30,16 +31,16 @@ export class UserService {
     return this.httpClient.get<AppUserDetailDto>(`${this.apiUrl}/users/username/${username}`);
   }
 
-  update(id: string, userDetail: AppUserDetailDto) {
-    return this.httpClient.put(`${this.apiUrl}/users/${id}`, userDetail);
+  update(id: string, updateAppUserDto: UpdateAppUserDto) {
+    return this.httpClient.put(`${this.apiUrl}/users/${id}`, updateAppUserDto);
   }
 
   setMainPicture(pictureId: string) {
-    return this.httpClient.put(`${this.apiUrl}/users/set-main-picture/${pictureId}`, {});
+    return this.httpClient.put(`${this.apiUrl}/pictures/set-main-picture/${pictureId}`, {});
   }
 
   removePicture(pictureId: string) {
-    return this.httpClient.delete(`${this.apiUrl}/users/remove-picture/${pictureId}`);
+    return this.httpClient.delete(`${this.apiUrl}/pictures/remove-picture/${pictureId}`);
   }
 
   private initUserParams(userParams?: UserParams): HttpParams {

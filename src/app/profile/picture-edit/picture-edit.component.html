@@ -1,1 +1,105 @@
-<p>picture-edit works!</p>
+<div class="row mb-3" *ngIf="user">
+    <ng-container *ngFor="let picture of user.pictures">
+        <div class="col-2">
+            <img src="{{picture.imageUrl}}" alt="{{user.nickname}}" class="img-thumbnail p-1 mb-1">
+            <div class="text-center">
+                <button
+                    class="btn btn-sm me-1 mb-1"
+                    [disabled]="picture.isMain"
+                    (click)="setMainPicture(picture)"
+                    [ngClass]='picture.isMain ? "btn-success active" : "btn-outline-success"'>
+                    Đại diện
+                </button>
+                <button 
+                    class="btn btn-sm btn-danger"
+                    [disabled]="picture.isMain"
+                    (click)="removePicture(picture)">
+                    <fa-icon [icon]="faTrash"></fa-icon>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<div class="row">
+ 
+    <div class="col-4 mb-5">
+
+        <h3 class="mb-2">Chọn ảnh</h3>
+
+        <div ng2FileDrop
+             [ngClass]="{'nv-file-over': hasBaseDropZoneOver}"
+             (fileOver)="fileOverBase($event)"
+             [uploader]="uploader"
+             class="card bg-faded text-center p-3 my-drop-zone mb-2">
+            <fa-icon [icon]="faUpload" size="3x"></fa-icon> Thả ảnh ở đây
+        </div>
+
+        <div class="mb-2">
+            Chọn một
+            <input type="file" ng2FileSelect [uploader]="uploader" />
+        </div>
+
+        <div class="mb-2">
+            Chọn nhiều
+            <input type="file" ng2FileSelect [uploader]="uploader" multiple  /><br/>
+        </div>
+    </div>
+
+    <ng-container *ngIf="uploader.queue.length > 0">
+        <div class="col-12">
+
+            <h3>Các ảnh đã chọn</h3>
+            <p>Độ dài hàng đợi: {{ uploader.queue.length }}</p>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th width="50%">Tên</th>
+                        <th>Kích thước</th>
+                        <th>Tiến triển</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of uploader.queue">
+                        <td><strong>{{ item?.file?.name }}</strong></td>
+                        <td *ngIf="uploader.options.isHTML5" nowrap>{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+                        <td *ngIf="uploader.options.isHTML5">
+                            <div class="progress" style="margin-bottom: 0;">
+                                <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': item.progress + '%' }"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div>
+                <div class="mb-3">
+                    Đang xử lý:
+                    <div class="progress">
+                        <div 
+                            class="progress-bar" 
+                            role="progressbar" 
+                            [ngStyle]="{ 'width': uploader.progress + '%' }">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-success btn-s me-2"
+                        (click)="uploader.uploadAll()" [disabled]="!uploader.getNotUploadedItems().length">
+                    Tải lên
+                </button>
+                <button type="button" class="btn btn-warning btn-s me-2"
+                        (click)="uploader.cancelAll()" [disabled]="!uploader.isUploading">
+                    Hủy
+                </button>
+                <button type="button" class="btn btn-danger btn-s me-2"
+                        (click)="uploader.clearQueue()" [disabled]="!uploader.queue.length">
+                    Xóa hết
+                </button>
+            </div>
+
+        </div>
+    </ng-container>
+
+</div>

@@ -1,0 +1,31 @@
+<div class="form-floating mb-3">
+    <textarea
+        [formControl]="control"
+        class="form-control"
+        [class.is-invalid]="control.touched && control.invalid">
+    </textarea>
+
+    <div 
+        class="invalid-feedback"
+        *ngIf="control.errors?.['required']">
+        Vui lòng nhập {{label}}.
+    </div>
+
+    <div 
+        class="invalid-feedback"
+        *ngIf="control.errors?.['minlength']">
+        Vui lòng nhập ít nhất {{control.errors?.['minlength']?.['requiredLength']}} kí tự.
+    </div>
+
+    <div 
+        class="invalid-feedback"
+        *ngIf="control.errors?.['maxlength']">
+        Độ dài không vượt quá {{control.errors?.['maxlength']?.['requiredLength']}} kí tự.
+    </div>
+
+    <div 
+        class="invalid-feedback"
+        *ngIf="control.errors?.['isMatching']">
+        Mật khẩu không trùng khớp.
+    </div>
+</div>

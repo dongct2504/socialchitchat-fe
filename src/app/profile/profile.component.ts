@@ -6,6 +6,7 @@ import { AuthenService } from '../authen/authen.service';
 import { UserService } from '../home/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
+import { UpdateAppUserDto } from '../shared/models/appUserDtos/updateAppUserDto';
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +35,6 @@ export class ProfileComponent {
   }
 
   ngOnInit(): void {
-    this.initForm();
     this.loadMember();
   }
 
@@ -54,15 +54,20 @@ export class ProfileComponent {
     if (this.authenUser && this.authenUser) {
       this.userService.getById(this.authenUser.id).subscribe(user => {
         this.user = user;
+        this.initForm();
       });
     }
   }
 
   updateMember() {
     if (this.user) {
-      this.userService.update(this.user.id, this.user).subscribe(() => {
+      const updateAppUserDto: UpdateAppUserDto = {
+        id: this.user.id,
+        ...this.editForm.value
+      };
+      this.userService.update(this.user.id, updateAppUserDto).subscribe(() => {
         this.toastr.success('Hồ sơ của bạn đã cập nhật thành công!');
-        this.editForm.reset(this.user);
+        this.loadMember();
       });
     }
   }

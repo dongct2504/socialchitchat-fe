@@ -58,7 +58,9 @@
                             style="cursor: pointer;" dropdownToggle>
                             <strong>{{currentUser.userName}}</strong>
                         </a>
-                        <fa-icon [icon]="faUserCircle" [size]="'2x'"></fa-icon>
+                        <img src="{{currentUser.profilePictureUrl || './assets/images/user.png'}}"
+                            alt="{{currentUser.nickname}}"
+                            class="profile-picture" />
 
                         <div class="dropdown-menu dropdown-menu-right" style="cursor: pointer;" *dropdownMenu>
                             <a class="dropdown-item d-flex align-items-center py-2" routerLink="/profile">
