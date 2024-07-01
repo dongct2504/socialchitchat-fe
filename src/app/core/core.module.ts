@@ -7,12 +7,18 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
+import { NotfoundComponent } from './errors/notfound/notfound.component';
+import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
 
 
 @NgModule({
   declarations: [
     NavBarComponent,
-    FooterComponent
+    FooterComponent,
+    TestErrorsComponent,
+    NotfoundComponent,
+    InternalServerErrorComponent
   ],
   imports: [
     CommonModule,

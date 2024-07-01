@@ -2,9 +2,15 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AuthGuard } from './core/guards/auth.guard';
+import { NotfoundComponent } from './core/errors/notfound/notfound.component';
+import { InternalServerErrorComponent } from './core/errors/internal-server-error/internal-server-error.component';
+import { TestErrorsComponent } from './core/errors/test-errors/test-errors.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
+  { path: 'test-errors', component: TestErrorsComponent },
+  { path: 'notfound', component: NotfoundComponent },
+  { path: 'internal-server-error', component: InternalServerErrorComponent },
   {
     path: 'authen',
     loadChildren: () => import('./authen/authen.module').then(mod => mod.AuthenModule)
@@ -29,7 +35,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     loadChildren: () => import('./profile/profile.module').then(mod => mod.ProfileModule)
   },
-  { path: '**', redirectTo: '', pathMatch: 'full' }
+  { path: '**', redirectTo: 'notfound', pathMatch: 'full' }
 ];
 
 @NgModule({

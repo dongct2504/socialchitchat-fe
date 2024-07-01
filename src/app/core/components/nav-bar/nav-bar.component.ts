@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faBars, faHome, faMessage, faSignOut, faThumbsUp, faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHome, faMessage, faSearch, faSignOut, faThumbsUp, faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { AuthenService } from 'src/app/authen/authen.service';
@@ -13,11 +13,11 @@ import { AppUserDto } from 'src/app/shared/models/appUserDtos/appUserDto';
 })
 export class NavBarComponent implements OnInit {
   faBars = faBars;
-  faUserCircle = faUserCircle;
   faUser = faUser;
   faSignOut = faSignOut;
 
   faHome = faHome;
+  faSearch = faSearch;
   faThumsbup = faThumbsUp;
   faMessage = faMessage;
 

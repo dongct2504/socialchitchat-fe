@@ -26,22 +26,40 @@ export class UserDetailComponent {
         width: '500px',
         height: '500px',
         thumbnailsColumns: 4,
-        imageAnimation: NgxGalleryAnimation.Slide
+        imageAnimation: NgxGalleryAnimation.Slide,
+        preview: true,
+        previewCloseOnClick: true,
+        previewCloseOnEsc: true,
+        previewKeyboardNavigation: true,
+        previewZoom: true,
+        previewRotate: true,
+        previewFullscreen: true,
+        previewDownload: true,
+        previewArrows: true,
+        thumbnailMargin: 5,
+        thumbnailsMargin: 5
       },
-      // max-width 800
       {
         breakpoint: 800,
         width: '100%',
         height: '600px',
+        thumbnailsColumns: 3,
         imagePercent: 80,
         thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20
+        thumbnailsMargin: 10,
+        thumbnailMargin: 10,
+        preview: true,
       },
-      // max-width 400
       {
         breakpoint: 400,
-        preview: false
+        width: '100%',
+        height: '300px',
+        thumbnailsColumns: 2,
+        imagePercent: 75,
+        thumbnailsPercent: 25,
+        thumbnailsMargin: 5,
+        thumbnailMargin: 5,
+        preview: true
       }
     ];
   }
