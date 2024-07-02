@@ -35,11 +35,11 @@
                 [formControlName]="'phoneNumber'">
             </app-text-input>
 
-            <!-- <app-date-input
+            <app-date-input
                 [label]="'Ngày sinh'"
                 [maxDate]="maxDate"
                 [formControlName]="'dateOfBirth'">
-            </app-date-input> -->
+            </app-date-input>
 
             <div class="mb-2">
                 <div>
@@ -76,9 +76,6 @@
                     Đăng ký
                 </button>
                 <button class="btn btn-danger" type="button" routerLink="/">Hủy</button>
-            </div>
-            <div>
-                {{registerForm.valid}}
             </div>
             <div class="text-center">
                 <p>Đã có tài khoản? <a class="text-info" routerLink="/login">Đăng nhập</a> ngay!</p>

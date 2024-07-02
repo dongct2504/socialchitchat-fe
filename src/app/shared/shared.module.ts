@@ -1,25 +1,28 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms'
+import { RouterModule } from '@angular/router';
 
 import { SharedRoutingModule } from './shared-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastrModule } from 'ngx-toastr';
-import { RouterModule } from '@angular/router';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { NgxGalleryModule } from '@rybos/ngx-gallery'
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
+import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 import { AgePipe } from './pipes/age.pipe'
 import { TextAreaComponent } from './components/text-area/text-area.component';
+import { DateInputComponent } from './components/date-input/date-input.component';
 
 
 @NgModule({
   declarations: [
     TextInputComponent,
     AgePipe,
-    TextAreaComponent
+    TextAreaComponent,
+    DateInputComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +36,8 @@ import { TextAreaComponent } from './components/text-area/text-area.component';
     }),
     NgxGalleryModule,
     TabsModule,
-    FileUploadModule
+    FileUploadModule,
+    BsDatepickerModule
   ],
   exports: [
     RouterModule,
@@ -43,10 +47,15 @@ import { TextAreaComponent } from './components/text-area/text-area.component';
     NgxGalleryModule,
     TabsModule,
     FileUploadModule,
+    BsDatepickerModule,
 
     TextInputComponent,
     TextAreaComponent,
+    DateInputComponent,
     AgePipe
+  ],
+  providers: [
+    BsDatepickerConfig
   ]
 })
 export class SharedModule { }
