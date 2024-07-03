@@ -3,7 +3,11 @@ import { UserService } from './user.service';
 import { AppUserDto } from '../shared/models/appUserDtos/appUserDto';
 import { UserParams } from '../shared/models/appUserDtos/userParams';
 import { PageSizeConstants } from '../shared/common/pageSizeConstants';
-import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthenService } from '../authen/authen.service';
+import { take } from 'rxjs';
+import { GenderConstants } from '../shared/common/genderConstants';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -11,27 +15,79 @@ import { faEnvelope, faHeart } from '@fortawesome/free-solid-svg-icons';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  filterForm = {} as FormGroup;
+  
   users?: AppUserDto[];
+  user?: AppUserDto;
 
   userParams = new UserParams();
   totalRecords = 0;
 
+  genderOptions = [
+    { display: 'Nam', value: GenderConstants.male },
+    { display: 'Nữ', value: GenderConstants.female },
+    { display: 'Tất cả', value: GenderConstants.unknown }
+  ];
+
+  faUser = faUser;
   faHeart = faHeart;
   faEnvelope = faEnvelope;
 
-  constructor(private userService: UserService) {
-    this.userParams.pageSize = PageSizeConstants.pageSize12;
+  constructor(
+    private userService: UserService,
+    private authenService: AuthenService,
+    private fb: FormBuilder
+  ) {
+    this.authenService.currentUser$.pipe(take(1)).subscribe(currentUser => {
+      if (currentUser) {
+        this.user = currentUser;
+
+        this.userParams = new UserParams();
+        this.userParams.chooseDisplayGender(currentUser);
+        this.userParams.pageSize = PageSizeConstants.pageSize12;
+      }
+    });
   }
 
   ngOnInit(): void {
     this.getUsers();
+    this.initForm();
   }
 
-  private getUsers() {
+  getUsers() {
     this.userService.getUsers(this.userParams).subscribe(pagedList => {
       this.users = pagedList.items;
-      this.userParams.pageNumber = pagedList.pageNumber;
       this.totalRecords = pagedList.totalRecords;
+      this.userParams.pageNumber = pagedList.pageNumber;
+    });
+  }
+
+  onPageChanged(event: any) {
+    this.userParams.pageNumber = event.page;
+    this.getUsers();
+  }
+
+  filter() {
+    this.userParams.minAge = this.filterForm.value.minAge;
+    this.userParams.maxAge = this.filterForm.value.maxAge;
+    this.userParams.gender = this.filterForm.value.gender;
+    this.userParams.pageNumber = 1;
+    this.getUsers();
+  }
+
+  resetFilter() {
+    this.filterForm.reset({
+      minAge: this.userParams.minAge,
+      maxAge: this.userParams.maxAge,
+      gender: this.userParams.gender
+    });
+  }
+
+  private initForm() {
+    this.filterForm = this.fb.group({
+      minAge: [this.userParams.minAge],
+      maxAge: [this.userParams.maxAge],
+      gender: [this.userParams.gender]
     });
   }
 }

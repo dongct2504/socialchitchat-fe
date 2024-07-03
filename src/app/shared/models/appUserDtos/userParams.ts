@@ -10,7 +10,7 @@ export class UserParams {
     constructor() {
     }
 
-    chooseDisplayGender(user: AppUserDto) {
+    public chooseDisplayGender(user: AppUserDto) {
         switch (user.gender) {
             case 'male':
                 this.gender = 'female';

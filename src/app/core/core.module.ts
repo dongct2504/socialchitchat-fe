@@ -18,7 +18,7 @@ import { InternalServerErrorComponent } from './errors/internal-server-error/int
     FooterComponent,
     TestErrorsComponent,
     NotfoundComponent,
-    InternalServerErrorComponent
+    InternalServerErrorComponent,
   ],
   imports: [
     CommonModule,

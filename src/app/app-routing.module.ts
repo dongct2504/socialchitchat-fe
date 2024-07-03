@@ -21,6 +21,11 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then(mod => mod.HomeModule)
   },
   {
+    path: 'search',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./search/search.module').then(mod => mod.SearchModule)
+  },
+  {
     path: 'liked',
     canActivate: [AuthGuard],
     loadChildren: () => import('./liked/liked.module').then(mod => mod.LikedModule)

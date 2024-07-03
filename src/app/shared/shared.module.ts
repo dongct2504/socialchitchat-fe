@@ -11,10 +11,12 @@ import { NgxGalleryModule } from '@rybos/ngx-gallery'
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
 import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { PaginationModule } from 'ngx-bootstrap/pagination'
 
 import { AgePipe } from './pipes/age.pipe'
 import { TextAreaComponent } from './components/text-area/text-area.component';
 import { DateInputComponent } from './components/date-input/date-input.component';
+import { PagingFooterComponent } from './components/paging-footer/paging-footer.component';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { DateInputComponent } from './components/date-input/date-input.component
     TextInputComponent,
     AgePipe,
     TextAreaComponent,
-    DateInputComponent
+    DateInputComponent,
+    PagingFooterComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +40,8 @@ import { DateInputComponent } from './components/date-input/date-input.component
     NgxGalleryModule,
     TabsModule,
     FileUploadModule,
-    BsDatepickerModule
+    BsDatepickerModule,
+    PaginationModule
   ],
   exports: [
     RouterModule,
@@ -48,10 +52,13 @@ import { DateInputComponent } from './components/date-input/date-input.component
     TabsModule,
     FileUploadModule,
     BsDatepickerModule,
+    PaginationModule,
 
     TextInputComponent,
     TextAreaComponent,
     DateInputComponent,
+    PagingFooterComponent,
+
     AgePipe
   ],
   providers: [

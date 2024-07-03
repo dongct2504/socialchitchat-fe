@@ -1,0 +1,13 @@
+<div class="d-flex justify-content-center mt-4">
+    <pagination
+        [boundaryLinks]="true"
+        [totalItems]="totalRecords"
+        [itemsPerPage]="itemPerPage"
+        [maxSize]="8"
+        (pageChanged)="onPageFooterChanged($event)"
+        [previousText]="'&lsaquo;'"
+        [nextText]="'&rsaquo;'"
+        [firstText]="'&laquo;'"
+        [lastText]="'&raquo;'">
+    </pagination>
+</div>
