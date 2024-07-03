@@ -16,7 +16,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   filterForm = {} as FormGroup;
-  
+
   users?: AppUserDto[];
   user?: AppUserDto;
 
@@ -76,11 +76,15 @@ export class HomeComponent implements OnInit {
   }
 
   resetFilter() {
-    this.filterForm.reset({
-      minAge: this.userParams.minAge,
-      maxAge: this.userParams.maxAge,
-      gender: this.userParams.gender
-    });
+    if (this.user) {
+      this.userParams = new UserParams();
+      this.userParams.chooseDisplayGender(this.user);
+      this.filterForm.reset({
+        minAge: this.userParams.minAge,
+        maxAge: this.userParams.maxAge,
+        gender: this.userParams.gender
+      });
+    }
   }
 
   private initForm() {
