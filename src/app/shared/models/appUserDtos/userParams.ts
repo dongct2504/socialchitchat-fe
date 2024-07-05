@@ -1,3 +1,4 @@
+import { SortByConstants } from "../../common/sortByConstants";
 import { AppUserDto } from "./appUserDto";
 
 export class UserParams {
@@ -6,6 +7,7 @@ export class UserParams {
     gender: string = "";
     minAge: number = 16;
     maxAge: number = 99;
+    sortBy: string = SortByConstants.lastActive;
 
     constructor() {
     }

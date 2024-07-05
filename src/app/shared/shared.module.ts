@@ -12,6 +12,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { FileUploadModule } from 'ng2-file-upload';
 import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { PaginationModule } from 'ngx-bootstrap/pagination'
+import { TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule } from 'ngx-timeago'
+import { strings as vietnameseStrings } from 'ngx-timeago/language-strings/vi'
 
 import { AgePipe } from './pipes/age.pipe'
 import { TextAreaComponent } from './components/text-area/text-area.component';
@@ -41,7 +43,10 @@ import { PagingFooterComponent } from './components/paging-footer/paging-footer.
     TabsModule,
     FileUploadModule,
     BsDatepickerModule,
-    PaginationModule
+    PaginationModule,
+    TimeagoModule.forRoot({
+      formatter: { provide: TimeagoFormatter, useClass: TimeagoCustomFormatter },
+    })
   ],
   exports: [
     RouterModule,
@@ -53,6 +58,7 @@ import { PagingFooterComponent } from './components/paging-footer/paging-footer.
     FileUploadModule,
     BsDatepickerModule,
     PaginationModule,
+    TimeagoModule,
 
     TextInputComponent,
     TextAreaComponent,
@@ -62,7 +68,16 @@ import { PagingFooterComponent } from './components/paging-footer/paging-footer.
     AgePipe
   ],
   providers: [
-    BsDatepickerConfig
+    BsDatepickerConfig,
+    { 
+      provide: TimeagoIntl,
+      useFactory: () => {
+        const intl = new TimeagoIntl();
+        intl.strings = vietnameseStrings;
+        intl.changes.next();
+        return intl;
+      }
+    }
   ]
 })
 export class SharedModule { }

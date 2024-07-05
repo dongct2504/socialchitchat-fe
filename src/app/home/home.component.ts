@@ -8,6 +8,7 @@ import { AuthenService } from '../authen/authen.service';
 import { take } from 'rxjs';
 import { GenderConstants } from '../shared/common/genderConstants';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { SortByConstants } from '../shared/common/sortByConstants';
 
 @Component({
   selector: 'app-home',
@@ -27,6 +28,11 @@ export class HomeComponent implements OnInit {
     { display: 'Nam', value: GenderConstants.male },
     { display: 'Nữ', value: GenderConstants.female },
     { display: 'Tất cả', value: GenderConstants.unknown }
+  ];
+
+  sortByOptions = [
+    { display: 'Mới cập nhật', value: SortByConstants.lastActive },
+    { display: 'Mới nhất', value: SortByConstants.created }
   ];
 
   faUser = faUser;
@@ -71,6 +77,7 @@ export class HomeComponent implements OnInit {
     this.userParams.minAge = this.filterForm.value.minAge;
     this.userParams.maxAge = this.filterForm.value.maxAge;
     this.userParams.gender = this.filterForm.value.gender;
+    this.userParams.sortBy = this.filterForm.value.sortBy;
     this.userParams.pageNumber = 1;
     this.getUsers();
   }
@@ -82,7 +89,8 @@ export class HomeComponent implements OnInit {
       this.filterForm.reset({
         minAge: this.userParams.minAge,
         maxAge: this.userParams.maxAge,
-        gender: this.userParams.gender
+        gender: this.userParams.gender,
+        sortBy: this.userParams.sortBy
       });
     }
   }
@@ -91,7 +99,8 @@ export class HomeComponent implements OnInit {
     this.filterForm = this.fb.group({
       minAge: [this.userParams.minAge],
       maxAge: [this.userParams.maxAge],
-      gender: [this.userParams.gender]
+      gender: [this.userParams.gender],
+      sortBy: [this.userParams.sortBy]
     });
   }
 }

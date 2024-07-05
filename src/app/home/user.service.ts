@@ -57,6 +57,8 @@ export class UserService {
     params = params.append('maxAge', userParams.maxAge.toString());
     params = params.append('minAge', userParams.minAge.toString());
 
+    params = params.append('sortBy', userParams.sortBy);
+
     params = params.append('pageNumber', userParams.pageNumber.toString());
     params = params.append('pageSize', userParams.pageSize.toString());
 
