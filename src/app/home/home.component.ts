@@ -3,12 +3,12 @@ import { UserService } from './user.service';
 import { AppUserDto } from '../shared/models/appUserDtos/appUserDto';
 import { UserParams } from '../shared/models/appUserDtos/userParams';
 import { PageSizeConstants } from '../shared/common/pageSizeConstants';
-import { faEnvelope, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthenService } from '../authen/authen.service';
 import { take } from 'rxjs';
 import { GenderConstants } from '../shared/common/genderConstants';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SortByConstants } from '../shared/common/sortByConstants';
+import { LikeDto } from '../shared/models/appUserLikeDtos/likeDto';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +20,7 @@ export class HomeComponent implements OnInit {
 
   users?: AppUserDto[];
   user?: AppUserDto;
+  userLikes?: LikeDto[];
 
   userParams = new UserParams();
   totalRecords = 0;
@@ -34,10 +35,6 @@ export class HomeComponent implements OnInit {
     { display: 'Mới cập nhật', value: SortByConstants.lastActive },
     { display: 'Mới nhất', value: SortByConstants.created }
   ];
-
-  faUser = faUser;
-  faHeart = faHeart;
-  faEnvelope = faEnvelope;
 
   constructor(
     private userService: UserService,
@@ -57,15 +54,8 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
+    this.getUserLikes();
     this.initForm();
-  }
-
-  getUsers() {
-    this.userService.getUsers(this.userParams).subscribe(pagedList => {
-      this.users = pagedList.items;
-      this.totalRecords = pagedList.totalRecords;
-      this.userParams.pageNumber = pagedList.pageNumber;
-    });
   }
 
   onPageChanged(event: any) {
@@ -93,6 +83,21 @@ export class HomeComponent implements OnInit {
         sortBy: this.userParams.sortBy
       });
     }
+  }
+
+  private getUsers() {
+    this.userService.getUsers(this.userParams).subscribe(pagedList => {
+      this.users = pagedList.items;
+      this.totalRecords = pagedList.totalRecords;
+      this.userParams.pageNumber = pagedList.pageNumber;
+    });
+  }
+
+  private getUserLikes() {
+    const predicate = 'liked';
+    this.userService.getUserLikes(predicate).subscribe(userLiked => {
+      this.userLikes = userLiked;
+    })
   }
 
   private initForm() {

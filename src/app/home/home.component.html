@@ -1,5 +1,9 @@
-<ng-container *ngIf="users">
-    <div class="my-3">
+<ng-container *ngIf="users && userLikes">
+    <div class="mb-4 mt-3">
+        <h2>Các thành viên</h2>
+    </div>
+
+    <div class="mb-3">
         <form 
             [formGroup]="filterForm" 
             (ngSubmit)="filter()" 
@@ -53,33 +57,7 @@
     <div class="row">
         <ng-container *ngFor="let user of users">
             <div class="col-lg-2 col-md-4 col-6">
-                <div class="card mb-4">
-                    <div class="card-img-wrapper" routerLink="/home/{{user.userName}}">
-                        <img 
-                            src="{{user.profilePictureUrl  || './assets/images/user.png'}}" 
-                            alt="{{user.nickname}}"
-                            class="card-img-top" />
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="mb-2">
-                            <h5 class="card-title text-center mb-1" routerLink="/home/{{user.userName}}">
-                                <i class="fa fa-user me-1"></i>{{user.nickname}}
-                            </h5>
-                            <p class="card-text text-muted text-center">Địa chỉ: {{user.city}}</p>
-                        </div>
-                        <div class="d-flex justify-content-around mb-1">
-                            <button class="btn btn-info">
-                                <fa-icon [icon]="faUser"></fa-icon>
-                            </button>
-                            <button class="btn btn-info">
-                                <fa-icon [icon]="faHeart"></fa-icon>
-                            </button>
-                            <button class="btn btn-info">
-                                <fa-icon [icon]="faEnvelope"></fa-icon>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <app-user-card [user]="user" [userLikes]="userLikes"></app-user-card>
             </div>
         </ng-container>
     </div>

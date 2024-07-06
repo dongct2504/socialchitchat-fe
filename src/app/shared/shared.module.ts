@@ -19,6 +19,7 @@ import { AgePipe } from './pipes/age.pipe'
 import { TextAreaComponent } from './components/text-area/text-area.component';
 import { DateInputComponent } from './components/date-input/date-input.component';
 import { PagingFooterComponent } from './components/paging-footer/paging-footer.component';
+import { UserCardComponent } from './components/user-card/user-card.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { PagingFooterComponent } from './components/paging-footer/paging-footer.
     AgePipe,
     TextAreaComponent,
     DateInputComponent,
-    PagingFooterComponent
+    PagingFooterComponent,
+    UserCardComponent
   ],
   imports: [
     CommonModule,
@@ -64,6 +66,7 @@ import { PagingFooterComponent } from './components/paging-footer/paging-footer.
     TextAreaComponent,
     DateInputComponent,
     PagingFooterComponent,
+    UserCardComponent,
 
     AgePipe
   ],

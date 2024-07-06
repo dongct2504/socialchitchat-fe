@@ -7,6 +7,7 @@ import { PagedList } from '../shared/models/pagedList';
 import { UserParams } from '../shared/models/appUserDtos/userParams';
 import { AppUserDetailDto } from '../shared/models/appUserDtos/appUserDetailDto';
 import { UpdateAppUserDto } from '../shared/models/appUserDtos/updateAppUserDto';
+import { LikeDto } from '../shared/models/appUserLikeDtos/likeDto';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,16 @@ export class UserService {
 
   removePicture(pictureId: string) {
     return this.httpClient.delete(`${this.apiUrl}/pictures/remove-picture/${pictureId}`);
+  }
+
+  getUserLikes(predicate: string): Observable<LikeDto[]> {
+    let params = new HttpParams();
+    params = params.append('predicate', predicate);
+    return this.httpClient.get<LikeDto[]>(`${this.apiUrl}/likes`, { params });
+  }
+
+  updateLike(id: string) {
+    return this.httpClient.post(`${this.apiUrl}/likes/${id}`, {});
   }
 
   private initUserParams(userParams?: UserParams): HttpParams {
