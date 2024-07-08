@@ -8,6 +8,7 @@ import { UserParams } from '../shared/models/appUserDtos/userParams';
 import { AppUserDetailDto } from '../shared/models/appUserDtos/appUserDetailDto';
 import { UpdateAppUserDto } from '../shared/models/appUserDtos/updateAppUserDto';
 import { LikeDto } from '../shared/models/appUserLikeDtos/likeDto';
+import { AppUserLikeParams } from '../shared/models/appUserLikeDtos/appUserLikeParams';
 
 @Injectable({
   providedIn: 'root'
@@ -44,14 +45,19 @@ export class UserService {
     return this.httpClient.delete(`${this.apiUrl}/pictures/remove-picture/${pictureId}`);
   }
 
-  getUserLikes(predicate: string): Observable<LikeDto[]> {
+  getAllUserLikes(predicate: string): Observable<LikeDto[]> {
     let params = new HttpParams();
     params = params.append('predicate', predicate);
     return this.httpClient.get<LikeDto[]>(`${this.apiUrl}/likes`, { params });
   }
 
-  updateLike(id: string) {
-    return this.httpClient.post(`${this.apiUrl}/likes/${id}`, {});
+  getUserLikes(appUserLikeParams: AppUserLikeParams): Observable<PagedList<LikeDto>> {
+    const params = this.initAppUserLikeParams(appUserLikeParams);
+    return this.httpClient.get<PagedList<LikeDto>>(`${this.apiUrl}/likes/getUserLikes`, { params });
+  }
+
+  updateLike(id: string): Observable<boolean> {
+    return this.httpClient.post<boolean>(`${this.apiUrl}/likes/${id}`, {});
   }
 
   private initUserParams(userParams?: UserParams): HttpParams {
@@ -72,6 +78,21 @@ export class UserService {
 
     params = params.append('pageNumber', userParams.pageNumber.toString());
     params = params.append('pageSize', userParams.pageSize.toString());
+
+    return params;
+  }
+
+  private initAppUserLikeParams(appUserLikeParams?: AppUserLikeParams): HttpParams {
+    let params = new HttpParams();
+
+    if (!appUserLikeParams) {
+      return params;
+    }
+
+    params = params.append('predicate', appUserLikeParams.predicate);
+
+    params = params.append('pageNumber', appUserLikeParams.pageNumber.toString());
+    params = params.append('pageSize', appUserLikeParams.pageSize.toString());
 
     return params;
   }

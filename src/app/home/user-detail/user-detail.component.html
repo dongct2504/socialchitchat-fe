@@ -1,8 +1,13 @@
 <div class="row" *ngIf="user">
     <div class="col-md-4 offset-md-0 col-8 offset-2 mb-3">
         <div class="card">
-            <img src="{{user.profilePictureUrl || './assets/images/user.png'}}" alt="{{user.nickname}}"
-                class="card-img-top img-thumbnail">
+            <div class="card-img-wrapper">
+                <img 
+                    src="{{user.profilePictureUrl || './assets/images/user.png'}}" 
+                    alt="{{user.nickname}}"
+                    class="card-img-top img-thumbnail"
+                />
+            </div>
             <div class="card-body">
                 <div>
                     <p><strong>Họ và tên:</strong> {{user.lastName}} {{user.firstName}}</p>

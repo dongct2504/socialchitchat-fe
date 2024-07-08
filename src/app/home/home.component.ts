@@ -54,8 +54,14 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    this.getUserLikes();
+    this.getAllUserLikes();
     this.initForm();
+  }
+
+  getAllUserLikes() {
+    this.userService.getAllUserLikes('liked').subscribe(allUserLikes => {
+      this.userLikes = allUserLikes;
+    })
   }
 
   onPageChanged(event: any) {
@@ -91,13 +97,6 @@ export class HomeComponent implements OnInit {
       this.totalRecords = pagedList.totalRecords;
       this.userParams.pageNumber = pagedList.pageNumber;
     });
-  }
-
-  private getUserLikes() {
-    const predicate = 'liked';
-    this.userService.getUserLikes(predicate).subscribe(userLiked => {
-      this.userLikes = userLiked;
-    })
   }
 
   private initForm() {

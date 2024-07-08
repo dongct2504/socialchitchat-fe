@@ -3,6 +3,7 @@ import { LikeDto } from '../shared/models/appUserLikeDtos/likeDto';
 import { UserService } from '../home/user.service';
 import { faEnvelope, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { PageSizeConstants } from '../shared/common/pageSizeConstants';
+import { AppUserLikeParams } from '../shared/models/appUserLikeDtos/appUserLikeParams';
 
 @Component({
   selector: 'app-liked',
@@ -11,16 +12,17 @@ import { PageSizeConstants } from '../shared/common/pageSizeConstants';
 })
 export class LikedComponent implements OnInit {
   userLikes?: LikeDto[];
-  predicate = 'liked';
+  isGetUserLikes = true;
 
   faUser = faUser;
   faHeart = faHeart;
   faEnvelope = faEnvelope;
 
-  pageSize = PageSizeConstants.pageSize12;
+  appUserLikeParams = new AppUserLikeParams();
   totalRecords = 0;
 
   constructor(private userService: UserService) {
+    this.appUserLikeParams.pageSize = PageSizeConstants.pageSize12;
   }
 
   ngOnInit(): void {
@@ -28,16 +30,34 @@ export class LikedComponent implements OnInit {
   }
 
   getUserLikes() {
-    this.predicate = 'liked';
-    this.userService.getUserLikes(this.predicate).subscribe(userLiked => {
-      this.userLikes = userLiked;
+    this.appUserLikeParams.predicate = 'liked';
+    this.isGetUserLikes = true;
+    this.userService.getUserLikes(this.appUserLikeParams).subscribe(pagedList => {
+      this.userLikes = pagedList.items;
+
+      this.appUserLikeParams.pageNumber = pagedList.pageNumber;
+      this.totalRecords = pagedList.totalRecords;
     })
   }
 
   getLikedByOthers() {
-    this.predicate = 'likedBy';
-    this.userService.getUserLikes(this.predicate).subscribe(userLiked => {
-      this.userLikes = userLiked;
+    this.appUserLikeParams.predicate = 'likedBy';
+    this.isGetUserLikes = false;
+    this.userService.getUserLikes(this.appUserLikeParams).subscribe(pagedList => {
+      this.userLikes = pagedList.items;
+
+      this.appUserLikeParams.pageNumber = pagedList.pageNumber;
+      this.totalRecords = pagedList.totalRecords;
     })
+  }
+
+  onPageChanged(event: any) {
+    this.appUserLikeParams.pageNumber = event.page;
+
+    if (this.isGetUserLikes) {
+      this.getUserLikes();
+    } else {
+      this.getLikedByOthers();
+    }
   }
 }

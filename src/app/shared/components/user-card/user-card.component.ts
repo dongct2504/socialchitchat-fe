@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppUserDto } from '../../models/appUserDtos/appUserDto';
 import { LikeDto } from '../../models/appUserLikeDtos/likeDto';
 import { UserService } from 'src/app/home/user.service';
@@ -13,6 +13,8 @@ import { faEnvelope, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
 export class UserCardComponent implements OnInit {
   @Input() user?: AppUserDto;
   @Input() userLikes?: LikeDto[];
+
+  @Output() likeUnlikeEmitter = new EventEmitter<void>();
 
   faUser = faUser;
   faHeart = faHeart;
@@ -32,16 +34,15 @@ export class UserCardComponent implements OnInit {
   }
 
   updateLike(user: AppUserDto) {
-    this.userService.updateLike(user.id).subscribe(() => {
-      this.toastr.success(`Bạn đã like ${user.nickname}`);
-      this.getUserLikes();
+    this.userService.updateLike(user.id).subscribe((isLike) => {
+      if (isLike !== null && isLike !== undefined) {
+        if (isLike) {
+          this.toastr.success(`Bạn đã like ${user.nickname}`);
+        } else {
+          this.toastr.info(`Bạn đã bỏ like ${user.nickname}`);
+        }
+        this.likeUnlikeEmitter.emit();
+      }
     });
-  }
-
-  private getUserLikes() {
-    const predicate = 'liked';
-    this.userService.getUserLikes(predicate).subscribe(userLiked => {
-      this.userLikes = userLiked;
-    })
   }
 }
