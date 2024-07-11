@@ -1,1 +1,54 @@
-<p>search works!</p>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2 class="mb-4 text-center">Tìm kiếm</h2>
+        <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="d-flex mb-4">
+            <input 
+                type="text" 
+                formControlName="name" 
+                class="form-control me-2" 
+                placeholder="Nhập tên đăng nhập của người đó..."
+                [disabled]="isLoading"
+            />
+            <button type="submit" class="btn btn-primary me-1" [disabled]="isLoading">
+                <fa-icon [icon]="faSearch"></fa-icon>
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="onRefresh()">
+                <fa-icon [icon]="faRefresh"></fa-icon>
+            </button>
+        </form>
+
+        <div *ngIf="searchResults.length > 0">
+            <h2 class="text-center mb-4">Kết quả</h2>
+            <div class="row">
+                <ng-container *ngFor="let user of searchResults">
+                    <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                        <div class="card">
+                            <div class="card-img-wrapper" routerLink="/home/{{user.userName}}">
+                                <img 
+                                    src="{{user.profilePictureUrl  || './assets/images/user.png'}}" 
+                                    alt="{{user.nickname}}"
+                                    class="card-img-top"
+                                />
+                            </div>
+                            <div class="card-body text-center">
+                                <h5 class="card-title">{{user.nickname}}</h5>
+                                <p class="card-text">City: {{user.city}}</p>
+                                <a 
+                                    routerLink="/home/{{user.userName}}"
+                                    class="btn btn-outline-primary btn-sm"
+                                >
+                                    Xem
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+
+        <div 
+            *ngIf="searchResults.length === 0 && searchForm.get('name')?.value && !isLoading && isClickSearch">
+            <p class="text-center text-muted">Không có kết quả cho "{{searchForm.get('name')?.value}}".</p>
+        </div>
+    </div>
+</div>
