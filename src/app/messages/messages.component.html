@@ -1,1 +1,79 @@
-<p>messages works!</p>
+<form *ngIf="btnForm" [formGroup]="btnForm" class="form-inline d-flex align-items-center">
+    <div class="form-group mb-3">
+        <div class="btn-group" btnRadioGroup formControlName="contain">
+            <button
+                btnRadio="inbox" 
+                class="btn btn-outline-primary"
+                (click)="onChangeButton()"
+            >
+                Hộp thư đến
+            </button>
+            <button
+                btnRadio="outbox" 
+                class="btn btn-outline-primary"
+                (click)="onChangeButton()"
+            >
+                Thư đã gửi
+            </button>
+            <button
+                btnRadio="unread" 
+                class="btn btn-outline-primary"
+                (click)="onChangeButton()"
+            >
+                Thư chưa đọc
+            </button>
+        </div>
+    </div>
+</form>
+
+<div *ngIf="messages">
+    <div *ngIf="messages.length === 0" class="row">Không có tin nhắn!</div>
+
+    <div *ngIf="messages.length > 0" class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 40%;">Tin nhắn</th>
+                    <th style="width: 20%;">Đến từ / Gửi cho</th>
+                    <th style="width: 20%;">Đã gửi</th>
+                    <th style="width: 20%;"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let message of messages">
+                    <td>{{message.content}}</td>
+                    <td>
+                        <div 
+                            *ngIf="messageParams.contain === 'outbox'" 
+                            routerLink="/home/{{message.recipientUserName}}"
+                            style="cursor: pointer;"
+                        >
+                            <img 
+                                class="img-circle rounded-circle me-2"
+                                src="{{message.recipientImageUrl || './assets/images/user.png'}}" 
+                                alt="{{message.recipientUserName}}"
+                            />
+                            <strong>{{message.recipientUserName}}</strong>
+                        </div>
+                        <div 
+                            *ngIf="messageParams.contain !== 'outbox'"
+                            routerLink="/home/{{message.senderUserName}}"
+                            style="cursor: pointer;"
+                        >
+                            <img
+                                class="img-circle rounded-circle me-2"
+                                src="{{message.senderImageUrl || './assets/images/user.png'}}" 
+                                alt="{{message.senderUserName}}"
+                            />
+                            <strong>{{message.senderUserName}}</strong>
+                        </div>
+                    </td>
+                    <td>{{message.messageSent | timeago}} trước</td>
+                    <td>
+                        <button class="btn btn-outline-danger">Xóa</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

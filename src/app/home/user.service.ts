@@ -21,7 +21,6 @@ export class UserService {
 
   public getUsers(userParams?: UserParams): Observable<PagedList<AppUserDto>> {
     const params = this.initUserParams(userParams);
-
     return this.httpClient.get<PagedList<AppUserDto>>(`${this.apiUrl}/users`, { params });
   }
 
@@ -31,6 +30,10 @@ export class UserService {
 
   getByUsername(username: string): Observable<AppUserDetailDto> {
     return this.httpClient.get<AppUserDetailDto>(`${this.apiUrl}/users/username/${username}`);
+  }
+
+  search(name: string): Observable<AppUserDto[]> {
+    return this.httpClient.get<AppUserDto[]>(`${this.apiUrl}/users/search`, { params: { name } });
   }
 
   update(id: string, updateAppUserDto: UpdateAppUserDto) {
@@ -46,9 +49,7 @@ export class UserService {
   }
 
   getAllUserLikes(predicate: string): Observable<LikeDto[]> {
-    let params = new HttpParams();
-    params = params.append('predicate', predicate);
-    return this.httpClient.get<LikeDto[]>(`${this.apiUrl}/likes`, { params });
+    return this.httpClient.get<LikeDto[]>(`${this.apiUrl}/likes`, { params: { predicate } });
   }
 
   getUserLikes(appUserLikeParams: AppUserLikeParams): Observable<PagedList<LikeDto>> {

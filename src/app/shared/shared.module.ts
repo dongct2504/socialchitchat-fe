@@ -14,6 +14,7 @@ import { BsDatepickerConfig, BsDatepickerModule } from 'ngx-bootstrap/datepicker
 import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule } from 'ngx-timeago'
 import { strings as vietnameseStrings } from 'ngx-timeago/language-strings/vi'
+import { ButtonsModule } from 'ngx-bootstrap/buttons';
 
 import { AgePipe } from './pipes/age.pipe'
 import { TextAreaComponent } from './components/text-area/text-area.component';
@@ -48,7 +49,8 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     PaginationModule,
     TimeagoModule.forRoot({
       formatter: { provide: TimeagoFormatter, useClass: TimeagoCustomFormatter },
-    })
+    }),
+    ButtonsModule
   ],
   exports: [
     RouterModule,
@@ -61,6 +63,7 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     BsDatepickerModule,
     PaginationModule,
     TimeagoModule,
+    ButtonsModule,
 
     TextInputComponent,
     TextAreaComponent,
