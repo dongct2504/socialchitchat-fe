@@ -1,0 +1,18 @@
+<div class="card" *ngIf="messages">
+    <div class="card-body">
+        <div *ngIf="messages.length === 0">
+            Không có tin nhắn. Hãy bắt đầu cuộc trò chuyện bằng cách nhắn 'Hi'
+        </div>
+
+        <ul *ngIf="messages.length > 0">
+            <li *ngFor="let message of messages">
+                <div class="chat-img float-right">
+                    <img 
+                        src="{{message.senderImageUrl || './assets/images/user.png'}}" 
+                        alt="{{message.senderUserName}}" 
+                    />
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

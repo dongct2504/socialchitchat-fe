@@ -20,6 +20,10 @@ export class MessagesService {
     return this.httpClient.get<PagedList<MessageDto>>(`${this.apiUrl}/messages`, { params });
   }
 
+  public getMessageThread(id: string): Observable<MessageDto[]> {
+    return this.httpClient.get<MessageDto[]>(`${this.apiUrl}/messages/thread/${id}`);
+  }
+
   private initMessageParams(messageParams: MessageParams): HttpParams {
     let params = new HttpParams();
 
