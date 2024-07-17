@@ -7,10 +7,14 @@
         <ul *ngIf="messages.length > 0">
             <li *ngFor="let message of messages">
                 <div class="chat-img float-right">
-                    <img 
-                        src="{{message.senderImageUrl || './assets/images/user.png'}}" 
-                        alt="{{message.senderUserName}}" 
+                    <img
+                        style="max-height: 50px;"
+                        src="{{message.senderImageUrl || './assets/images/user.png'}}"
+                        alt="{{message.senderUserName}}"
                     />
+                </div>
+                <div>
+                    <p>{{message.content}}</p>
                 </div>
             </li>
         </ul>

@@ -11,15 +11,19 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserDetailComponent {
   user?: AppUserDetailDto;
+  isUserLike: boolean = false;
 
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
 
-  constructor(private userService: UserService, private route: ActivatedRoute) {
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.getUser();
+    this.checkUserLike();
 
     this.galleryOptions = [
       {
@@ -66,10 +70,18 @@ export class UserDetailComponent {
 
   private getUser() {
     const userName = this.route.snapshot.paramMap.get('username') || '';
-    return this.userService.getByUsername(userName).subscribe(user => {
+    this.userService.getByUsername(userName).subscribe(user => {
       this.user = user;
       this.galleryImages = this.getImages();
     });
+  }
+
+  private checkUserLike() {
+    if (this.user) {
+      this.userService.isUserLiked(this.user.id).subscribe(isUserLike => {
+        this.isUserLike = isUserLike;
+      });
+    }
   }
 
   private getImages() {

@@ -57,6 +57,10 @@ export class UserService {
     return this.httpClient.get<PagedList<LikeDto>>(`${this.apiUrl}/likes/getUserLikes`, { params });
   }
 
+  isUserLiked(id: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.apiUrl}/likes/${id}`);
+  }
+
   updateLike(id: string): Observable<boolean> {
     return this.httpClient.post<boolean>(`${this.apiUrl}/likes/${id}`, {});
   }
