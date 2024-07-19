@@ -16,7 +16,7 @@
                 <div class="chat-body">
                     <div class="header">
                         <small class="text-muted">
-                            <span>{{message.messageSent | timeago}} trước</span>
+                            <span>đã gửi {{message.messageSent | timeago}} trước</span>
                             <span 
                                 class="text-danger" 
                                 *ngIf="!message.dateRead && message.senderId !== userId"
