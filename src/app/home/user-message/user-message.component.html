@@ -20,12 +20,14 @@
                             <span>đã gửi {{message.messageSent | timeago}} trước</span>
                             <span 
                                 class="text-danger" 
-                                *ngIf="!message.dateRead && message.senderId !== userId">
+                                *ngIf="!message.dateRead && message.senderId !== userId"
+                            >
                                 (chưa đọc)
                             </span>
                             <span 
-                                class="text-success" 
-                                *ngIf="message.dateRead && message.senderId !== userId">
+                                class="text-success"
+                                *ngIf="message.dateRead && message.senderId !== userId"
+                            >
                                 (đã đọc {{message.dateRead | timeago}} trước)
                             </span>
                         </small>
