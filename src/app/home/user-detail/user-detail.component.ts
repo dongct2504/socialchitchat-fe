@@ -23,7 +23,6 @@ export class UserDetailComponent {
 
   ngOnInit(): void {
     this.getUser();
-    this.checkUserLike();
 
     this.galleryOptions = [
       {
@@ -73,6 +72,7 @@ export class UserDetailComponent {
     this.userService.getByUsername(userName).subscribe(user => {
       this.user = user;
       this.galleryImages = this.getImages();
+      this.checkUserLike();
     });
   }
 

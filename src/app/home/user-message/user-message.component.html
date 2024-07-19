@@ -6,17 +6,47 @@
 
         <ul *ngIf="messages.length > 0">
             <li *ngFor="let message of messages">
-                <div class="chat-img float-right">
+                <div class="">
                     <img
-                        style="max-height: 50px;"
+                        class="rounded-circle"
                         src="{{message.senderImageUrl || './assets/images/user.png'}}"
                         alt="{{message.senderUserName}}"
                     />
                 </div>
-                <div>
-                    <p>{{message.content}}</p>
+                <div class="chat-body">
+                    <div class="header">
+                        <small class="text-muted">
+                            <span>{{message.messageSent | timeago}} trước</span>
+                            <span 
+                                class="text-danger" 
+                                *ngIf="!message.dateRead && message.senderId !== userId"
+                            >
+                                (chưa đọc)
+                            </span>
+                            <span 
+                                class="text-success" 
+                                *ngIf="message.dateRead && message.senderId !== userId"
+                            >
+                                (đã đọc {{message.dateRead | timeago}} trước)
+                            </span>
+                        </small>
+                        <div>
+                            <p>{{message.content}}</p>
+                        </div>
+                    </div>
                 </div>
             </li>
         </ul>
+    </div>
+
+    <div class="card-footer">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control input-sm" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Gửi</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

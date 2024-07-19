@@ -19,7 +19,7 @@ export class UserMessageComponent implements OnInit {
     this.getMessageThread();
   }
 
-  getMessageThread() {
+  private getMessageThread() {
     if (!this.userId) {
       return;
     }
