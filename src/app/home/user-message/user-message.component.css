@@ -5,3 +5,46 @@
 .rounded-circle {
     max-height: 50px;
 }
+
+/* .message-left {
+    float: left;
+    clear: both;
+    text-align: left;
+}
+
+.message-right {
+    float: right;
+    clear: both;
+    text-align: right;
+} */
+
+.message-left {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.message-right {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    text-align: right;
+    flex-direction: row-reverse;
+}
+
+.message-left .chat-body {
+    background-color: beige;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 10px;
+    max-width: 70%;
+}
+
+.message-right .chat-body {
+    background-color: aquamarine;
+    padding: 10px;
+    border-radius: 10px;
+    margin-right: 10px;
+    max-width: 70%;
+}
