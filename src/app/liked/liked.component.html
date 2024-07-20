@@ -32,7 +32,11 @@
                                 <button class="btn btn-info" routerLink="/home/{{user.userName}}">
                                     <fa-icon [icon]="faUser"></fa-icon>
                                 </button>
-                                <button class="btn btn-info">
+                                <button 
+                                    class="btn btn-info"
+                                    routerLink="/home/{{user.userName}}"
+                                    [queryParams]="{tab: 4}"
+                                >
                                     <fa-icon [icon]="faEnvelope"></fa-icon>
                                 </button>
                             </div>

@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@rybos/ngx-gallery';
 import { AppUserDetailDto } from 'src/app/shared/models/appUserDtos/appUserDetailDto';
 import { UserService } from '../user.service';
@@ -12,8 +12,8 @@ import { MessagesService } from 'src/app/messages/messages.service';
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css']
 })
-export class UserDetailComponent {
-  @ViewChild('userTabs') userTabs = {} as TabsetComponent;
+export class UserDetailComponent implements OnInit, AfterViewInit {
+  @ViewChild('userTabs', { static: true }) userTabs?: TabsetComponent;
 
   activeTab?: TabDirective;
 
@@ -77,6 +77,19 @@ export class UserDetailComponent {
     ];
   }
 
+  ngAfterViewInit(): void {
+    console.log('ngAfterViewInit called');
+    console.log(this.userTabs);
+
+    this.route.queryParams.subscribe(params => {
+      if (params['tab']) {
+        this.selectTab(+params['tab']);
+      } else {
+        this.selectTab(0);
+      }
+    });
+  }
+
   onTabActivated(data: TabDirective) {
     this.activeTab = data;
     if (this.activeTab.heading === 'Nhắn tin' && this.messages.length === 0) {
@@ -125,5 +138,11 @@ export class UserDetailComponent {
     }
 
     return imageUrls;
+  }
+
+  private selectTab(tabId: number) {
+    if (this.userTabs) {
+      this.userTabs.tabs[tabId].active = true;
+    }
   }
 }

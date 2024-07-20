@@ -46,6 +46,7 @@
                         <div 
                             *ngIf="messageParams.contain === 'outbox'" 
                             routerLink="/home/{{message.recipientUserName}}"
+                            [queryParams]="{tab: 3}"
                             style="cursor: pointer;"
                         >
                             <img 
@@ -58,6 +59,7 @@
                         <div 
                             *ngIf="messageParams.contain !== 'outbox'"
                             routerLink="/home/{{message.senderUserName}}"
+                            [queryParams]="{tab: 4}"
                             style="cursor: pointer;"
                         >
                             <img
