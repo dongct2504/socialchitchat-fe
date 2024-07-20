@@ -36,26 +36,30 @@
     </div>
 
     <div class="col-md-8">
-        <tabset>
-            <tab heading="Thông tin" class="mt-3">
+        <tabset #userTabs>
+            <tab heading="Thông tin" class="mt-3" (selectTab)="onTabActivated($event)">
                 <h4>Thông tin mô tả về {{user.nickname}}</h4>
                 <p>{{user.introduction}}</p>
             </tab>
-            <tab heading="Tìm kiếm" class="mt-3">
+            <tab heading="Tìm kiếm" class="mt-3" (selectTab)="onTabActivated($event)">
                 <h4>Mẫu người lý tưởng của {{user.nickname}}</h4>
                 <p>{{user.idealType}}</p>
             </tab>
-            <tab heading="Sở thích" class="mt-3">
+            <tab heading="Sở thích" class="mt-3" (selectTab)="onTabActivated($event)">
                 <h4>Sở thích của {{user.nickname}}</h4>
                 <p>{{user.interest}}</p>
             </tab>
-            <tab heading="Ảnh" class="mt-3">
+            <tab heading="Ảnh" class="mt-3" (selectTab)="onTabActivated($event)">
                 <ngx-gallery [options]="galleryOptions" [images]="galleryImages"
                     style="display: inline-block; margin-bottom: 20px;">
                 </ngx-gallery>
             </tab>
-            <tab heading="Nhắn tin">
-                <app-user-message [userId]="user.id"></app-user-message>
+            <tab heading="Nhắn tin" (selectTab)="onTabActivated($event)">
+                <app-user-message 
+                    [userId]="user.id"
+                    [messages]="messages"
+                >
+                </app-user-message>
             </tab>
         </tabset>
     </div>

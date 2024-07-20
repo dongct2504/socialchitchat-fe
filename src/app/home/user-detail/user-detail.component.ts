@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@rybos/ngx-gallery';
 import { AppUserDetailDto } from 'src/app/shared/models/appUserDtos/appUserDetailDto';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
+import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
+import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
+import { MessagesService } from 'src/app/messages/messages.service';
 
 @Component({
   selector: 'app-user-detail',
@@ -10,15 +13,22 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./user-detail.component.css']
 })
 export class UserDetailComponent {
+  @ViewChild('userTabs') userTabs = {} as TabsetComponent;
+
+  activeTab?: TabDirective;
+
   user?: AppUserDetailDto;
   isUserLike: boolean = false;
+  messages: MessageDto[] = [];
 
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private messagesService: MessagesService
+  ) {
   }
 
   ngOnInit(): void {
@@ -67,6 +77,13 @@ export class UserDetailComponent {
     ];
   }
 
+  onTabActivated(data: TabDirective) {
+    this.activeTab = data;
+    if (this.activeTab.heading === 'Nhắn tin' && this.messages.length === 0) {
+      this.getMessageThread();
+    }
+  }
+
   private getUser() {
     const userName = this.route.snapshot.paramMap.get('username') || '';
     this.userService.getByUsername(userName).subscribe(user => {
@@ -74,6 +91,16 @@ export class UserDetailComponent {
       this.galleryImages = this.getImages();
       this.checkUserLike();
     });
+  }
+
+  private getMessageThread() {
+    if (!this.user) {
+      return;
+    }
+
+    this.messagesService.getMessageThread(this.user.id).subscribe(messages => {
+      this.messages = messages;
+    })
   }
 
   private checkUserLike() {

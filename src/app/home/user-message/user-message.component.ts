@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MessagesService } from 'src/app/messages/messages.service';
+import { Component, Input } from '@angular/core';
 import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
 
 @Component({
@@ -7,25 +6,7 @@ import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
   templateUrl: './user-message.component.html',
   styleUrls: ['./user-message.component.css']
 })
-export class UserMessageComponent implements OnInit {
+export class UserMessageComponent {
   @Input() userId?: string;
-
-  messages?: MessageDto[];
-
-  constructor(private messagesService: MessagesService) {
-  }
-
-  ngOnInit(): void {
-    this.getMessageThread();
-  }
-
-  private getMessageThread() {
-    if (!this.userId) {
-      return;
-    }
-
-    this.messagesService.getMessageThread(this.userId).subscribe(messages => {
-      this.messages = messages;
-    })
-  }
+  @Input() messages?: MessageDto[];
 }
