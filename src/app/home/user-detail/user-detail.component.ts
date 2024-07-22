@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
 import { MessagesService } from 'src/app/messages/messages.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-detail',
@@ -27,7 +28,8 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
-    private messagesService: MessagesService
+    private messagesService: MessagesService,
+    private toastr: ToastrService
   ) {
   }
 
@@ -92,6 +94,19 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
     if (this.activeTab.heading === 'Nhắn tin' && this.messages.length === 0) {
       this.getMessageThread();
     }
+  }
+
+  updateLike() {
+    this.userService.updateLike(this.user.id).subscribe((isLike) => {
+      if (isLike !== null && isLike !== undefined) {
+        if (isLike) {
+          this.toastr.success(`Bạn đã like ${this.user.nickname}`);
+        } else {
+          this.toastr.info(`Bạn đã bỏ like ${this.user.nickname}`);
+        }
+        this.checkUserLike();
+      }
+    });
   }
 
   private getUser() {

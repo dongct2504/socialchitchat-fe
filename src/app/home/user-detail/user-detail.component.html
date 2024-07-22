@@ -28,8 +28,20 @@
             </div>
             <div class="card-footer">
                 <div class="btn-group d-flex">
-                    <button class="btn btn-outline-primary" *ngIf="isUserLike === false">Thích</button>
-                    <button class="btn btn-primary" *ngIf="isUserLike === true">Đã thích</button>
+                    <button 
+                        class="btn btn-outline-primary" 
+                        *ngIf="isUserLike === false"
+                        (click)="updateLike()"
+                    >
+                        Thích
+                    </button>
+                    <button 
+                        class="btn btn-primary" 
+                        *ngIf="isUserLike === true"
+                        (click)="updateLike()"
+                    >
+                        Đã thích
+                    </button>
                 </div>
             </div>
         </div>
