@@ -17,7 +17,7 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
 
   activeTab?: TabDirective;
 
-  user?: AppUserDetailDto;
+  user = {} as AppUserDetailDto;
   isUserLike: boolean = false;
   messages: MessageDto[] = [];
 
@@ -78,9 +78,6 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    console.log('ngAfterViewInit called');
-    console.log(this.userTabs);
-
     this.route.queryParams.subscribe(params => {
       if (params['tab']) {
         this.selectTab(+params['tab']);
