@@ -1,3 +1,10 @@
+.message-container {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 80vh;
+}
+
 .card {
     border: none;
 }
@@ -46,4 +53,8 @@
     border-radius: 10px;
     margin-right: 10px;
     max-width: 70%;
+}
+
+.card-footer {
+    padding: 10px;
 }

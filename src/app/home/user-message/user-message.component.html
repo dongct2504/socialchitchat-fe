@@ -1,51 +1,63 @@
-<div class="card" *ngIf="messages">
-    <div class="card-body">
-        <div *ngIf="messages.length === 0">
-            Không có tin nhắn. Hãy bắt đầu cuộc trò chuyện bằng cách nhắn 'Hi'
-        </div>
+<div class="message-container">
+    <div class="card" *ngIf="messages">
+        <div class="card-body">
+            <div *ngIf="messages.length === 0">
+                Không có tin nhắn. Hãy bắt đầu cuộc trò chuyện bằng cách nhắn 'Hi'
+            </div>
 
-        <div *ngIf="messages.length > 0">
-            <div 
-                *ngFor="let message of messages" 
-                [ngClass]="{'message-right': message.senderId !== userId, 'message-left': message.senderId === userId}"
-            >
-                <img
-                    class="rounded-circle"
-                    src="{{message.senderImageUrl || './assets/images/user.png'}}"
-                    alt="{{message.senderUserName}}"
-                />
-                <div class="chat-body">
-                    <div class="header">
-                        <small class="text-muted">
-                            <span>đã gửi {{message.messageSent | timeago}} trước</span>
-                            <span 
-                                class="text-danger" 
-                                *ngIf="!message.dateRead && message.senderId !== userId"
-                            >
-                                (chưa đọc)
-                            </span>
-                            <span 
-                                class="text-success"
-                                *ngIf="message.dateRead && message.senderId !== userId"
-                            >
-                                (đã đọc {{message.dateRead | timeago}} trước)
-                            </span>
-                        </small>
-                        <p>{{message.content}}</p>
+            <div *ngIf="messages.length > 0">
+                <div 
+                    *ngFor="let message of messages" 
+                    [ngClass]="{'message-right': message.senderId !== recipientId, 'message-left': message.senderId === recipientId}"
+                >
+                    <img
+                        class="rounded-circle"
+                        src="{{message.senderImageUrl || './assets/images/user.png'}}"
+                        alt="{{message.senderUserName}}"
+                    />
+                    <div class="chat-body">
+                        <div class="header">
+                            <small class="text-muted">
+                                <span>đã gửi {{message.messageSent | timeago}} trước</span>
+                                <span 
+                                    class="text-danger" 
+                                    *ngIf="!message.dateRead && message.senderId !== recipientId"
+                                >
+                                    (chưa đọc)
+                                </span>
+                                <span 
+                                    class="text-success"
+                                    *ngIf="message.dateRead && message.senderId !== recipientId"
+                                >
+                                    (đã đọc {{message.dateRead | timeago}} trước)
+                                </span>
+                            </small>
+                            <p>{{message.content}}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="card-footer">
-        <form>
-            <div class="input-group">
-                <input type="text" class="form-control input-sm" />
-                <div class="input-group-append">
-                    <button class="btn btn-primary" type="submit">Gửi</button>
+        <div class="card-footer">
+            <form [formGroup]="messageForm" (ngSubmit)="sendMessage()" autocomplete="off">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        class="form-control input-sm"
+                        formControlName="content"
+                    />
+                    <div class="input-group-append">
+                        <button 
+                            class="btn btn-primary" 
+                            type="submit"
+                            [disabled]="messageForm.invalid"
+                        >
+                            Gửi
+                        </button>
+                    </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>

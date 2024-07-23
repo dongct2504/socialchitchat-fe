@@ -68,7 +68,7 @@
             </tab>
             <tab heading="Nhắn tin" (selectTab)="onTabActivated($event)">
                 <app-user-message 
-                    [userId]="user.id"
+                    [recipientId]="user.id"
                     [messages]="messages"
                 >
                 </app-user-message>

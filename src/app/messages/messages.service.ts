@@ -24,6 +24,10 @@ export class MessagesService {
     return this.httpClient.get<MessageDto[]>(`${this.apiUrl}/messages/thread/${id}`);
   }
 
+  public sendMessage(recipientId: string, content: string) {
+    return this.httpClient.post<MessageDto>(`${this.apiUrl}/messages`, { recipientId, content });
+  }
+
   private initMessageParams(messageParams: MessageParams): HttpParams {
     let params = new HttpParams();
 
