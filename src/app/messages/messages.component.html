@@ -78,4 +78,10 @@
             </tbody>
         </table>
     </div>
+
+    <app-paging-footer
+        [totalRecords]="totalRecords"
+        [itemPerPage]="messageParams.pageSize"
+        (pageEventEmitter)="onPageChanged($event)">
+    </app-paging-footer>
 </div>
