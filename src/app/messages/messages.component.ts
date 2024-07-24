@@ -17,6 +17,7 @@ export class MessagesComponent implements OnInit {
 
   messageParams = new MessageParams();
   totalRecords = 0;
+  isLoading = false; // to hide the profile picture glitch because it load slower
 
   constructor(private messageService: MessagesService, private fb: FormBuilder) {
     this.messageParams.pageSize = PageSizeConstants.pageSize12;
@@ -39,10 +40,12 @@ export class MessagesComponent implements OnInit {
   }
 
   private getMessages() {
+    this.isLoading = true;
     this.messageService.getMessages(this.messageParams).subscribe(pagedList => {
       this.messages = pagedList.items;
       this.messageParams.pageNumber = pagedList.pageNumber;
       this.totalRecords = pagedList.totalRecords;
+      this.isLoading = false;
     });
   }
 
