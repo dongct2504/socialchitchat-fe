@@ -4,6 +4,7 @@ import { MessageParams } from '../shared/models/messageDtos/messageParams';
 import { PageSizeConstants } from '../shared/common/pageSizeConstants';
 import { MessagesService } from './messages.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-messages',
@@ -19,7 +20,11 @@ export class MessagesComponent implements OnInit {
   totalRecords = 0;
   isLoading = false; // to hide the profile picture glitch because it load slower
 
-  constructor(private messageService: MessagesService, private fb: FormBuilder) {
+  constructor(
+    private messageService: MessagesService,
+    private fb: FormBuilder,
+    private toastr: ToastrService
+  ) {
     this.messageParams.pageSize = PageSizeConstants.pageSize12;
   }
 
@@ -37,6 +42,13 @@ export class MessagesComponent implements OnInit {
     // *bug
     this.messageParams.pageNumber = event.page;
     this.getMessages();
+  }
+
+  deleteMessage(id: string) {
+    this.messageService.deleteMessage(id).subscribe(() => {
+      this.toastr.info('Đã xóa tin nhắn thành công!');
+      this.getMessages();
+    });
   }
 
   private getMessages() {

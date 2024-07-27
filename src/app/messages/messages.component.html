@@ -72,7 +72,12 @@
                     </td>
                     <td>{{message.messageSent | timeago}} trước</td>
                     <td>
-                        <button class="btn btn-outline-danger">Xóa</button>
+                        <button 
+                            class="btn btn-outline-danger" 
+                            (click)="deleteMessage(message.messageId)"
+                        >
+                            Xóa
+                        </button>
                     </td>
                 </tr>
             </tbody>

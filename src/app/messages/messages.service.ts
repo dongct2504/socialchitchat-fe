@@ -24,8 +24,12 @@ export class MessagesService {
     return this.httpClient.get<MessageDto[]>(`${this.apiUrl}/messages/thread/${id}`);
   }
 
-  public sendMessage(recipientId: string, content: string) {
+  public sendMessage(recipientId: string, content: string): Observable<MessageDto>  {
     return this.httpClient.post<MessageDto>(`${this.apiUrl}/messages`, { recipientId, content });
+  }
+
+  public deleteMessage(id: string) {
+    return this.httpClient.delete(`${this.apiUrl}/messages/${id}`);
   }
 
   private initMessageParams(messageParams: MessageParams): HttpParams {
