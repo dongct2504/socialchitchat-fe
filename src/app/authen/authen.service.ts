@@ -24,6 +24,7 @@ export class AuthenService {
       map(res => {
         if (res) {
           const authenDto = res as AuthenticationDto;
+          this.setRole(authenDto);
           this.setAuthen(authenDto);
         }
       })
@@ -65,7 +66,28 @@ export class AuthenService {
       appUserDto: userDto,
       token: this.getToken()
     };
+
+    this.setRole(authenDto);
     this.setAuthen(authenDto);
+  }
+
+  private setRole(authenDto: AuthenticationDto) {
+    authenDto.appUserDto.roles = [];
+
+    const decodedToken = this.getDecodedToken(authenDto.token);
+    const roles = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
+
+    // if it has more than 1 roles then it's a array, if it's not then it's a string
+    if (Array.isArray(roles)) {
+      authenDto.appUserDto.roles = roles;
+    } else {
+      authenDto.appUserDto.roles.push(roles);
+    }
+  }
+
+  private getDecodedToken(token: string) {
+    // token has 3 part: header, payload, signature
+    return JSON.parse(atob(token.split('.')[1])); // get the middle part (the payload)
   }
 
   private setAuthen(authenDto: AuthenticationDto) {

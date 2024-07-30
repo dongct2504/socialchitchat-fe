@@ -9,4 +9,5 @@ export interface AppUserDto {
     ward: string | null;
     district: string | null;
     city: string | null;
+    roles: string[];
 }

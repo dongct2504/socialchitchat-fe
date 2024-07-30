@@ -5,6 +5,7 @@ import { AuthGuard } from './core/guards/auth.guard';
 import { NotfoundComponent } from './core/errors/notfound/notfound.component';
 import { InternalServerErrorComponent } from './core/errors/internal-server-error/internal-server-error.component';
 import { TestErrorsComponent } from './core/errors/test-errors/test-errors.component';
+import { AdminGuard } from './core/guards/admin.guard';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -14,6 +15,12 @@ const routes: Routes = [
   {
     path: 'authen',
     loadChildren: () => import('./authen/authen.module').then(mod => mod.AuthenModule)
+  },
+  {
+    path: 'admin',
+    canActivate: [AuthGuard, AdminGuard],
+    loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
+
   },
   {
     path: 'home',
