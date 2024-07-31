@@ -10,6 +10,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { TestErrorsComponent } from './errors/test-errors/test-errors.component';
 import { NotfoundComponent } from './errors/notfound/notfound.component';
 import { InternalServerErrorComponent } from './errors/internal-server-error/internal-server-error.component';
+import { HasRoleDirective } from './directives/has-role.directive';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { InternalServerErrorComponent } from './errors/internal-server-error/int
     TestErrorsComponent,
     NotfoundComponent,
     InternalServerErrorComponent,
+    HasRoleDirective
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,7 @@ import { InternalServerErrorComponent } from './errors/internal-server-error/int
     NgxSpinnerModule,
 
     NavBarComponent,
-    FooterComponent
+    FooterComponent,
   ]
 })
 export class CoreModule { }
