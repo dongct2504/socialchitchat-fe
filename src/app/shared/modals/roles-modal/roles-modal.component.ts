@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { AppUsersWithRolesDto } from '../../models/appUserDtos/appUsersWithRolesDto';
 
 @Component({
   selector: 'app-roles-modal',
@@ -7,13 +9,26 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
   styleUrls: ['./roles-modal.component.css']
 })
 export class RolesModalComponent implements OnInit {
-  title?: string;
-  closeBtnName?: string;
-  list: string[] = [];
+  @Input() updateSelectedRoles = new EventEmitter();
+  user?: AppUsersWithRolesDto;
+  roles: any[] = [];
 
-  constructor(public bsModalRef: BsModalRef) {
+  rolesForm = {} as FormGroup;
+
+  constructor(public bsModalRef: BsModalRef, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  updateRoles() {
+    this.updateSelectedRoles.emit(this.roles);
+    this.bsModalRef.hide();
+  }
+
+  private initForm() {
+    this.rolesForm = this.fb.group({
+    })
   }
 }

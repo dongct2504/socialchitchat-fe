@@ -1,5 +1,5 @@
 export interface AppUsersWithRolesDto {
-    userId: string;
+    id: string;
     userName: string;
     roles: string[];
 }
