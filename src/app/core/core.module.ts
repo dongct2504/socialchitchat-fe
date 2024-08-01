@@ -34,6 +34,8 @@ import { HasRoleDirective } from './directives/has-role.directive';
 
     NavBarComponent,
     FooterComponent,
+
+    HasRoleDirective
   ]
 })
 export class CoreModule { }

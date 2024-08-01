@@ -15,12 +15,14 @@ import { PaginationModule } from 'ngx-bootstrap/pagination'
 import { TimeagoCustomFormatter, TimeagoFormatter, TimeagoIntl, TimeagoModule } from 'ngx-timeago'
 import { strings as vietnameseStrings } from 'ngx-timeago/language-strings/vi'
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { AgePipe } from './pipes/age.pipe'
 import { TextAreaComponent } from './components/text-area/text-area.component';
 import { DateInputComponent } from './components/date-input/date-input.component';
 import { PagingFooterComponent } from './components/paging-footer/paging-footer.component';
 import { UserCardComponent } from './components/user-card/user-card.component';
+import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     TextAreaComponent,
     DateInputComponent,
     PagingFooterComponent,
-    UserCardComponent
+    UserCardComponent,
+    RolesModalComponent
   ],
   imports: [
     CommonModule,
@@ -50,7 +53,8 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     TimeagoModule.forRoot({
       formatter: { provide: TimeagoFormatter, useClass: TimeagoCustomFormatter },
     }),
-    ButtonsModule
+    ButtonsModule,
+    ModalModule.forRoot()
   ],
   exports: [
     RouterModule,
@@ -70,6 +74,7 @@ import { UserCardComponent } from './components/user-card/user-card.component';
     DateInputComponent,
     PagingFooterComponent,
     UserCardComponent,
+    ModalModule,
 
     AgePipe
   ],

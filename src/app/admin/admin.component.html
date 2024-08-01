@@ -1,1 +1,12 @@
-<p>admin works!</p>
+<h2>Admin panel</h2>
+
+<div class="tab-panel">
+    <tabset class="user-tabset">
+        <tab heading="Quản lý vai trò của các nhân viên" *appHasRole="['admin']">
+            <app-admin-management></app-admin-management>
+        </tab>
+        <tab heading="Quản lý hình ảnh" *appHasRole="['admin', 'employee']">
+            <app-picture-management></app-picture-management>
+        </tab>
+    </tabset>
+</div>
