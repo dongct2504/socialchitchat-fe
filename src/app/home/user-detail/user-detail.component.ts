@@ -7,6 +7,8 @@ import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
 import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
 import { MessagesService } from 'src/app/messages/messages.service';
 import { ToastrService } from 'ngx-toastr';
+import { PresenceService } from 'src/app/presence/presence.service';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-user-detail',
@@ -25,11 +27,14 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
 
+  faUser = faUser;
+
   constructor(
     private userService: UserService,
     private route: ActivatedRoute,
     private messagesService: MessagesService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public presenceService: PresenceService
   ) {
   }
 

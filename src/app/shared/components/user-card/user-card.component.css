@@ -18,3 +18,8 @@
 .card-title {
     cursor: pointer;
 }
+
+.is-online {
+    color: aqua;
+    background-color: cadetblue;
+}

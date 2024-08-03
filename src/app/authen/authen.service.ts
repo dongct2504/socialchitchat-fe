@@ -6,6 +6,7 @@ import { AuthenticationDto } from '../shared/models/authenticationDtos/authentic
 import { BehaviorSubject, Observable, map } from 'rxjs';
 import { RegisterAppUserDto } from '../shared/models/authenticationDtos/registerAppUserDto';
 import { AppUserDto } from '../shared/models/appUserDtos/appUserDto';
+import { PresenceService } from '../presence/presence.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AuthenService {
   private currentUserSource = new BehaviorSubject<AppUserDto | null>(null);
   currentUser$ = this.currentUserSource.asObservable();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private presenceService: PresenceService) {
   }
 
   public login(loginRequest: LoginAppUserDto): Observable<void> {
@@ -26,6 +27,7 @@ export class AuthenService {
           const authenDto = res as AuthenticationDto;
           this.setRole(authenDto);
           this.setAuthen(authenDto);
+          this.presenceService.createHubConnection(authenDto);
         }
       })
     );
@@ -35,12 +37,14 @@ export class AuthenService {
     return this.httpClient.post<AuthenticationDto>(`${this.apiUrl}/authen/register`, registerRequest);
   }
 
-  public loadCurrentUser() {
+  public loadCurrentUser(): AuthenticationDto | null {
     const authenJson = localStorage.getItem('datinglove-authen');
     if (authenJson) {
       const authen: AuthenticationDto = JSON.parse(authenJson);
       this.currentUserSource.next(authen.appUserDto);
+      return authen;
     }
+    return null;
   }
 
   public getToken(): string {
@@ -59,6 +63,7 @@ export class AuthenService {
   public logout() {
     localStorage.removeItem('datinglove-authen');
     this.currentUserSource.next(null);
+    this.presenceService.stopHubConnection();
   }
 
   public setUser(userDto: AppUserDto) {

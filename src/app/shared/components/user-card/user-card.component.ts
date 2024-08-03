@@ -4,6 +4,7 @@ import { LikeDto } from '../../models/appUserLikeDtos/likeDto';
 import { UserService } from 'src/app/home/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { faEnvelope, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
+import { PresenceService } from 'src/app/presence/presence.service';
 
 @Component({
   selector: 'app-user-card',
@@ -22,7 +23,8 @@ export class UserCardComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public presenceService: PresenceService
   ) {
   }
 

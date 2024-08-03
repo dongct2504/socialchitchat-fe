@@ -9,6 +9,11 @@
                 />
             </div>
             <div class="card-body">
+                <div class="mb-2" *ngIf="(presenceService.onlineUsers$ | async)?.includes(user.id)">
+                    <span class="text-success">
+                        <fa-icon [icon]="faUser"></fa-icon> Online
+                    </span>
+                </div>
                 <div>
                     <p><strong>Họ và tên:</strong> {{user.lastName}} {{user.firstName}}</p>
                 </div>
