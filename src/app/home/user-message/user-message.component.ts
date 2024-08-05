@@ -23,11 +23,9 @@ export class UserMessageComponent implements OnInit {
 
   sendMessage() {
     if (this.recipientId) {
-      this.messagesService.sendMessage(this.recipientId, this.messageForm.get('content')?.value)
-        .subscribe(message => {
-          this.messages?.push(message);
-          this.messageForm.reset();
-        });
+      this.messagesService.sendMessage(this.recipientId, this.messageForm.get('content')?.value).then(() => {
+        this.messageForm.reset();
+      });
     }
   }
 

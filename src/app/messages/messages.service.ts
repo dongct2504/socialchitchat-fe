@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, take } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { MessageDto } from '../shared/models/messageDtos/messageDto';
 import { MessageParams } from '../shared/models/messageDtos/messageParams';
@@ -28,14 +28,21 @@ export class MessagesService {
       })
       .withAutomaticReconnect()
       .build();
-    
+
     this.hubConnection
       .start()
       .catch(err => console.log(err));
 
     this.hubConnection.on('ReceiveMessageThread', (messages: MessageDto[]) => {
       this.messageThreadSource.next(messages);
-    })
+    });
+
+    this.hubConnection.on('NewMessage', (message: MessageDto) => {
+      this.messageThread$.pipe(take(1)).subscribe(messages => {
+        // do this without mutating the array (messageThread)
+        this.messageThreadSource.next([...messages, message]);
+      })
+    });
   }
 
   public stopHubConnection() {
@@ -55,8 +62,12 @@ export class MessagesService {
     return this.httpClient.get<MessageDto[]>(`${this.apiUrl}/messages/thread/${id}`);
   }
 
-  public sendMessage(recipientId: string, content: string): Observable<MessageDto>  {
-    return this.httpClient.post<MessageDto>(`${this.apiUrl}/messages`, { recipientId, content });
+  public async sendMessage(recipientId: string, content: string): Promise<MessageDto> {
+    // return this.httpClient.post<MessageDto>(`${this.apiUrl}/messages`, { recipientId, content });
+
+    // return the Promise
+    return this.hubConnection?.invoke('SendMessageAsync', { recipientId, content })
+      .catch(err => console.log(err)); // no longer catch by ErrorInterceptor because it's not a Http Request
   }
 
   public deleteMessage(id: string) {
