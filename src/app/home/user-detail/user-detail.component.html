@@ -72,11 +72,7 @@
                 </ngx-gallery>
             </tab>
             <tab heading="Nhắn tin" (selectTab)="onTabActivated($event)">
-                <app-user-message 
-                    [recipientId]="user.id"
-                    [messages]="messages"
-                >
-                </app-user-message>
+                <app-user-message [recipientId]="user.id"></app-user-message>
             </tab>
         </tabset>
     </div>

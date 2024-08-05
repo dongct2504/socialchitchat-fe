@@ -1,18 +1,49 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { MessageDto } from '../shared/models/messageDtos/messageDto';
 import { MessageParams } from '../shared/models/messageDtos/messageParams';
 import { PagedList } from '../shared/models/pagedList';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessagesService {
   private apiUrl = environment.apiUrl;
+  private hubUrl = environment.hubUrl;
+  private hubConnection?: HubConnection;
+
+  private messageThreadSource = new BehaviorSubject<MessageDto[]>([]);
+  messageThread$ = this.messageThreadSource.asObservable();
 
   constructor(private httpClient: HttpClient) {
+  }
+
+  public createHubConnection(token: string, otherUserId: string) {
+    this.hubConnection = new HubConnectionBuilder()
+      .withUrl(`${this.hubUrl}/message?otherId=${otherUserId}`, {
+        accessTokenFactory: () => token
+      })
+      .withAutomaticReconnect()
+      .build();
+    
+    this.hubConnection
+      .start()
+      .catch(err => console.log(err));
+
+    this.hubConnection.on('ReceiveMessageThread', (messages: MessageDto[]) => {
+      this.messageThreadSource.next(messages);
+    })
+  }
+
+  public stopHubConnection() {
+    if (this.hubConnection) {
+      this.hubConnection
+        .stop()
+        .catch(err => console.log(err));
+    }
   }
 
   public getMessages(messageParams: MessageParams): Observable<PagedList<MessageDto>> {

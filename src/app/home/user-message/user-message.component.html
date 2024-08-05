@@ -1,13 +1,13 @@
 <div class="message-container">
-    <div class="card" *ngIf="messages">
+    <div class="card" *ngIf="(messagesService.messageThread$ | async) as messageThread">
         <div class="card-body">
-            <div *ngIf="messages.length === 0">
+            <div *ngIf="messageThread.length === 0">
                 Không có tin nhắn. Hãy bắt đầu cuộc trò chuyện bằng cách nhắn 'Hi'
             </div>
 
-            <div *ngIf="messages.length > 0">
+            <div *ngIf="messageThread.length > 0">
                 <div 
-                    *ngFor="let message of messages" 
+                    *ngFor="let message of messageThread" 
                     [ngClass]="{'message-right': message.senderId !== recipientId, 'message-left': message.senderId === recipientId}"
                 >
                     <img

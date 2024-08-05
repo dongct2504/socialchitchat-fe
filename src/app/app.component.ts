@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     const authenDto: AuthenticationDto | null = this.authenService.loadCurrentUser();
     if (authenDto !== null) {
-      this.presenceSrvice.createHubConnection(authenDto);
+      this.presenceSrvice.createHubConnection(authenDto.token);
     }
   }
 }

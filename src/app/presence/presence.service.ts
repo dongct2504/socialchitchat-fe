@@ -16,10 +16,10 @@ export class PresenceService {
 
   constructor() { }
 
-  public createHubConnection(authenDto: AuthenticationDto) {
+  public createHubConnection(token: string) {
     this.hubConnection = new HubConnectionBuilder()
       .withUrl(`${this.hubUrl}/presence`, {
-        accessTokenFactory: () => authenDto.token
+        accessTokenFactory: () => token
       })
       .withAutomaticReconnect()
       .build();

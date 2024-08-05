@@ -27,7 +27,7 @@ export class AuthenService {
           const authenDto = res as AuthenticationDto;
           this.setRole(authenDto);
           this.setAuthen(authenDto);
-          this.presenceService.createHubConnection(authenDto);
+          this.presenceService.createHubConnection(authenDto.token);
         }
       })
     );

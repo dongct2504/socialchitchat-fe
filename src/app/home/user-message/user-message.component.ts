@@ -14,7 +14,7 @@ export class UserMessageComponent implements OnInit {
 
   messageForm = {} as FormGroup;
 
-  constructor(private messagesService: MessagesService, private fb: FormBuilder) {
+  constructor(public messagesService: MessagesService, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {

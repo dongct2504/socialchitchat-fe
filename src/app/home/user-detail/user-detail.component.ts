@@ -1,28 +1,28 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@rybos/ngx-gallery';
 import { AppUserDetailDto } from 'src/app/shared/models/appUserDtos/appUserDetailDto';
 import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
-import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
 import { MessagesService } from 'src/app/messages/messages.service';
 import { ToastrService } from 'ngx-toastr';
 import { PresenceService } from 'src/app/presence/presence.service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { AuthenService } from 'src/app/authen/authen.service';
 
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css']
 })
-export class UserDetailComponent implements OnInit, AfterViewInit {
+export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('userTabs', { static: true }) userTabs?: TabsetComponent;
 
   activeTab?: TabDirective;
 
   user = {} as AppUserDetailDto;
   isUserLike: boolean = false;
-  messages: MessageDto[] = [];
+  // messages: MessageDto[] = [];
 
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
@@ -34,7 +34,8 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private messagesService: MessagesService,
     private toastr: ToastrService,
-    public presenceService: PresenceService
+    private authenService: AuthenService,
+    public presenceService: PresenceService,
   ) {
   }
 
@@ -96,8 +97,10 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
 
   onTabActivated(data: TabDirective) {
     this.activeTab = data;
-    if (this.activeTab.heading === 'Nhắn tin' && this.messages.length === 0) {
+    if (this.activeTab.heading === 'Nhắn tin') {
       this.getMessageThread();
+    } else {
+      this.messagesService.stopHubConnection();
     }
   }
 
@@ -128,9 +131,11 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.messagesService.getMessageThread(this.user.id).subscribe(messages => {
-      this.messages = messages;
-    })
+    // this.messagesService.getMessageThread(this.user.id).subscribe(messages => {
+    //   this.messages = messages;
+    // })
+    const token = this.authenService.getToken();
+    this.messagesService.createHubConnection(token, this.user.id);
   }
 
   private checkUserLike() {
@@ -161,5 +166,9 @@ export class UserDetailComponent implements OnInit, AfterViewInit {
     if (this.userTabs) {
       this.userTabs.tabs[tabId].active = true;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.messagesService.stopHubConnection();
   }
 }
