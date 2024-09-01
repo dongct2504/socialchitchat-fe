@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { environment } from 'src/environments/environment.development';
-import { AuthenticationDto } from '../shared/models/authenticationDtos/authenticationDto';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class PresenceService {
 
   onlineUsers$ = this.onlineUsersSource.asObservable();
 
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   public createHubConnection(token: string) {
     this.hubConnection = new HubConnectionBuilder()
@@ -30,16 +30,24 @@ export class PresenceService {
 
     // listening events
     this.hubConnection.on('UserIsOnline', id => {
-      console.log(`user id: ${id} is online`);
+      this.onlineUsers$.pipe(take(1)).subscribe(ids => {
+        this.onlineUsersSource.next([...ids, id]);
+      })
     });
 
     this.hubConnection.on('UserIsOffline', id => {
-      console.log(`user id: ${id} is offline`);
+      this.onlineUsers$.pipe(take(1)).subscribe(ids => {
+        this.onlineUsersSource.next([...ids.filter(x => x !== id)]);
+      })
     });
 
     this.hubConnection.on('GetOnlineUsers', (userIds: string[]) => {
       this.onlineUsersSource.next(userIds);
     });
+
+    this.hubConnection.on('NewMessageReceived', ({ senderId, senderNickname }) => {
+      this.toastr.info(`${senderNickname} đã gửi cho bạn tin nhắn!`);
+    })
   }
 
   public stopHubConnection() {
