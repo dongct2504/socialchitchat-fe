@@ -1,14 +1,15 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@rybos/ngx-gallery';
 import { AppUserDetailDto } from 'src/app/shared/models/appUserDtos/appUserDetailDto';
-import { UserService } from '../user.service';
 import { ActivatedRoute } from '@angular/router';
 import { TabDirective, TabsetComponent } from 'ngx-bootstrap/tabs';
-import { MessagesService } from 'src/app/messages/messages.service';
 import { ToastrService } from 'ngx-toastr';
-import { PresenceService } from 'src/app/presence/presence.service';
+import { PresenceService } from 'src/app/presence/services/presence.service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { AuthenService } from 'src/app/authen/authen.service';
+import { AuthenService } from 'src/app/authen/services/authen.service';
+import { UserService } from '../../services/user.service';
+import { MessagesService } from 'src/app/messages/messages.service';
+import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
 
 @Component({
   selector: 'app-user-detail',
@@ -22,7 +23,7 @@ export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   user = {} as AppUserDetailDto;
   isUserLike: boolean = false;
-  // messages: MessageDto[] = [];
+  messages: MessageDto[] = [];
 
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
@@ -131,9 +132,9 @@ export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    // this.messagesService.getMessageThread(this.user.id).subscribe(messages => {
-    //   this.messages = messages;
-    // })
+    this.messagesService.getMessageThread(this.user.id).subscribe(messages => {
+      this.messages = messages;
+    })
     const token = this.authenService.getToken();
     this.messagesService.createHubConnection(token, this.user.id);
   }

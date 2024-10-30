@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { take } from 'rxjs';
-import { AuthenService } from 'src/app/authen/authen.service';
+import { AuthenService } from 'src/app/authen/services/authen.service';
 import { AppUserDto } from 'src/app/shared/models/appUserDtos/appUserDto';
 
 @Directive({

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { AuthenService } from '../authen.service';
+import { AuthenService } from '../../services/authen.service';
 
 @Component({
   selector: 'app-register',

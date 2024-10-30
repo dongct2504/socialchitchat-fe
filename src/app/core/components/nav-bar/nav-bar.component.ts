@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { faBars, faHome, faMessage, faSearch, faSignOut, faThumbsUp, faUser, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { AuthenService } from 'src/app/authen/authen.service';
+import { AuthenService } from 'src/app/authen/services/authen.service';
 import { AppUserDto } from 'src/app/shared/models/appUserDtos/appUserDto';
 
 @Component({

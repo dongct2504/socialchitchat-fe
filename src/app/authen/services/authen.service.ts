@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { environment } from 'src/environments/environment.development';
-import { LoginAppUserDto } from '../shared/models/authenticationDtos/loginAppUserDto';
-import { AuthenticationDto } from '../shared/models/authenticationDtos/authenticationDto';
 import { BehaviorSubject, Observable, map } from 'rxjs';
-import { RegisterAppUserDto } from '../shared/models/authenticationDtos/registerAppUserDto';
-import { AppUserDto } from '../shared/models/appUserDtos/appUserDto';
-import { PresenceService } from '../presence/presence.service';
+import { AppUserDto } from 'src/app/shared/models/appUserDtos/appUserDto';
+import { PresenceService } from 'src/app/presence/services/presence.service';
+import { LoginAppUserDto } from 'src/app/shared/models/authenticationDtos/loginAppUserDto';
+import { AuthenticationDto } from 'src/app/shared/models/authenticationDtos/authenticationDto';
+import { RegisterAppUserDto } from 'src/app/shared/models/authenticationDtos/registerAppUserDto';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class AuthenService {
   }
 
   public loadCurrentUser(): AuthenticationDto | null {
-    const authenJson = localStorage.getItem('datinglove-authen');
+    const authenJson = localStorage.getItem('socialchitchat-authen');
     if (authenJson) {
       const authen: AuthenticationDto = JSON.parse(authenJson);
       this.currentUserSource.next(authen.appUserDto);
@@ -48,7 +48,7 @@ export class AuthenService {
   }
 
   public getToken(): string {
-    const authenJson = localStorage.getItem('datinglove-authen');
+    const authenJson = localStorage.getItem('socialchitchat-authen');
     if (authenJson) {
       const authen: AuthenticationDto = JSON.parse(authenJson);
       return authen.token;
@@ -61,7 +61,7 @@ export class AuthenService {
   }
 
   public logout() {
-    localStorage.removeItem('datinglove-authen');
+    localStorage.removeItem('socialchitchat-authen');
     this.currentUserSource.next(null);
     this.presenceService.stopHubConnection();
   }
@@ -96,7 +96,7 @@ export class AuthenService {
   }
 
   private setAuthen(authenDto: AuthenticationDto) {
-    localStorage.setItem('datinglove-authen', JSON.stringify(authenDto));
+    localStorage.setItem('socialchitchat-authen', JSON.stringify(authenDto));
     this.currentUserSource.next(authenDto.appUserDto);
   }
 }

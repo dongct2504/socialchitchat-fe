@@ -62,7 +62,7 @@ export class MessagesService {
     return this.httpClient.get<MessageDto[]>(`${this.apiUrl}/messages/thread/${id}`);
   }
 
-  public async sendMessage(recipientId: string, content: string): Promise<MessageDto> {
+  public async sendMessageBetweenParticipants(recipientId: string, content: string): Promise<MessageDto> {
     // return this.httpClient.post<MessageDto>(`${this.apiUrl}/messages`, { recipientId, content });
 
     // return the Promise

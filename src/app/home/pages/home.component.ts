@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from './user.service';
-import { AppUserDto } from '../shared/models/appUserDtos/appUserDto';
-import { UserParams } from '../shared/models/appUserDtos/userParams';
-import { PageSizeConstants } from '../shared/common/pageSizeConstants';
-import { AuthenService } from '../authen/authen.service';
+import { AppUserDto } from '../../shared/models/appUserDtos/appUserDto';
+import { UserParams } from '../../shared/models/appUserDtos/userParams';
+import { PageSizeConstants } from '../../shared/common/pageSizeConstants';
 import { take } from 'rxjs';
-import { GenderConstants } from '../shared/common/genderConstants';
+import { GenderConstants } from '../../shared/common/genderConstants';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SortByConstants } from '../shared/common/sortByConstants';
-import { LikeDto } from '../shared/models/appUserLikeDtos/likeDto';
+import { SortByConstants } from '../../shared/common/sortByConstants';
+import { LikeDto } from '../../shared/models/appUserLikeDtos/likeDto';
+import { AuthenService } from '../../authen/services/authen.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-home',

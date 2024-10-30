@@ -1,14 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppUserDetailDto } from 'src/app/shared/models/appUserDtos/appUserDetailDto';
+import { AppUserDto } from 'src/app/shared/models/appUserDtos/appUserDto';
+import { UpdateAppUserDto } from 'src/app/shared/models/appUserDtos/updateAppUserDto';
+import { UserParams } from 'src/app/shared/models/appUserDtos/userParams';
+import { AppUserLikeParams } from 'src/app/shared/models/appUserLikeDtos/appUserLikeParams';
+import { LikeDto } from 'src/app/shared/models/appUserLikeDtos/likeDto';
+import { PagedList } from 'src/app/shared/models/pagedList';
 import { environment } from 'src/environments/environment.development';
-import { AppUserDto } from '../shared/models/appUserDtos/appUserDto';
-import { PagedList } from '../shared/models/pagedList';
-import { UserParams } from '../shared/models/appUserDtos/userParams';
-import { AppUserDetailDto } from '../shared/models/appUserDtos/appUserDetailDto';
-import { UpdateAppUserDto } from '../shared/models/appUserDtos/updateAppUserDto';
-import { LikeDto } from '../shared/models/appUserLikeDtos/likeDto';
-import { AppUserLikeParams } from '../shared/models/appUserLikeDtos/appUserLikeParams';
 
 @Injectable({
   providedIn: 'root'

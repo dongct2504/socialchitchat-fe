@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenService } from '../authen/authen.service';
 import { Router } from '@angular/router';
+import { AuthenService } from 'src/app/authen/services/authen.service';
 
 @Component({
   selector: 'app-welcome',

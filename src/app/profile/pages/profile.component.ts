@@ -1,12 +1,12 @@
 import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppUserDto } from '../shared/models/appUserDtos/appUserDto';
-import { AppUserDetailDto } from '../shared/models/appUserDtos/appUserDetailDto';
-import { AuthenService } from '../authen/authen.service';
-import { UserService } from '../home/user.service';
+import { AppUserDto } from '../../shared/models/appUserDtos/appUserDto';
+import { AppUserDetailDto } from '../../shared/models/appUserDtos/appUserDetailDto';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
-import { UpdateAppUserDto } from '../shared/models/appUserDtos/updateAppUserDto';
+import { UpdateAppUserDto } from '../../shared/models/appUserDtos/updateAppUserDto';
+import { AuthenService } from 'src/app/authen/services/authen.service';
+import { UserService } from 'src/app/home/services/user.service';
 
 @Component({
   selector: 'app-profile',

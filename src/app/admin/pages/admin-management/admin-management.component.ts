@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AppUsersWithRolesDto } from 'src/app/shared/models/appUserDtos/appUsersWithRolesDto';
-import { AdminService } from '../admin.service';
 import { UsersWithRolesParams } from 'src/app/shared/models/adminDtos/usersWithRolesParams';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { RolesModalComponent } from 'src/app/shared/modals/roles-modal/roles-modal.component';
 import { RoleConstants } from 'src/app/shared/common/roleConstants';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin-management',

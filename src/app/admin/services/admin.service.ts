@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppUsersWithRolesDto } from 'src/app/shared/models/appUserDtos/appUsersWithRolesDto';
+import { PagedList } from 'src/app/shared/models/pagedList';
 import { environment } from 'src/environments/environment.development';
-import { AppUsersWithRolesDto } from '../shared/models/appUserDtos/appUsersWithRolesDto';
-import { PagedList } from '../shared/models/pagedList';
 
 @Injectable({
   providedIn: 'root'

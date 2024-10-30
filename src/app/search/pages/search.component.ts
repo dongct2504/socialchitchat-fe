@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { AppUserDto } from '../shared/models/appUserDtos/appUserDto';
-import { UserService } from '../home/user.service';
+import { AppUserDto } from '../../shared/models/appUserDtos/appUserDto';
 import { faRefresh, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from 'src/app/home/services/user.service';
 
 @Component({
   selector: 'app-search',

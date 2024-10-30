@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { LikeDto } from '../shared/models/appUserLikeDtos/likeDto';
-import { UserService } from '../home/user.service';
+import { LikeDto } from '../../shared/models/appUserLikeDtos/likeDto';
 import { faEnvelope, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
-import { PageSizeConstants } from '../shared/common/pageSizeConstants';
-import { AppUserLikeParams } from '../shared/models/appUserLikeDtos/appUserLikeParams';
+import { PageSizeConstants } from '../../shared/common/pageSizeConstants';
+import { AppUserLikeParams } from '../../shared/models/appUserLikeDtos/appUserLikeParams';
+import { UserService } from 'src/app/home/services/user.service';
 
 @Component({
   selector: 'app-liked',

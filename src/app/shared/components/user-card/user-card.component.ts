@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppUserDto } from '../../models/appUserDtos/appUserDto';
 import { LikeDto } from '../../models/appUserLikeDtos/likeDto';
-import { UserService } from 'src/app/home/user.service';
 import { ToastrService } from 'ngx-toastr';
 import { faEnvelope, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
-import { PresenceService } from 'src/app/presence/presence.service';
+import { PresenceService } from 'src/app/presence/services/presence.service';
+import { UserService } from 'src/app/home/services/user.service';
 
 @Component({
   selector: 'app-user-card',
