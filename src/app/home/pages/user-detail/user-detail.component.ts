@@ -23,7 +23,10 @@ export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
 
   user = {} as AppUserDetailDto;
   isUserLike: boolean = false;
+
   messages: MessageDto[] = [];
+  pageNumber: number = 1;
+  pageSize: number = 30;
 
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
@@ -132,8 +135,9 @@ export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    this.messagesService.getMessageThread(this.user.id).subscribe(messages => {
-      this.messages = messages;
+    this.messagesService.getGroupMessagesBetweenTwoUsers(this.user.id).subscribe(pagedList => {
+      this.messages = pagedList.items;
+      this.pageNumber = pagedList.pageNumber
     })
     const token = this.authenService.getToken();
     this.messagesService.createHubConnection(token, this.user.id);
