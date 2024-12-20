@@ -1,8 +1,10 @@
+import { GenderEnum } from "../../common/genderEnum";
+
 export interface AppUserDto {
     id: string;
     userName: string;
     dateOfBirth: string;
-    gender: string;
+    gender: GenderEnum;
     nickname: string;
     profilePictureUrl: string | null;
     address: string | null;

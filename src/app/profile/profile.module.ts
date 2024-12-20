@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProfileRoutingModule } from './profile-routing.module';
-import { ProfileComponent } from './profile.component';
+import { ProfileComponent } from './pages/profile.component';
 import { SharedModule } from '../shared/shared.module';
-import { PictureEditComponent } from './picture-edit/picture-edit.component';
+import { PictureEditComponent } from './pages/picture-edit/picture-edit.component';
 
 
 @NgModule({

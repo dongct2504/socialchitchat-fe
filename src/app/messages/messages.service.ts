@@ -23,7 +23,7 @@ export class MessagesService {
 
   public createHubConnection(token: string, otherUserId: string) {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(`${this.hubUrl}/message?otherId=${otherUserId}`, {
+      .withUrl(`${this.hubUrl}/message?recipientId=${otherUserId}`, {
         accessTokenFactory: () => token
       })
       .withAutomaticReconnect()
@@ -33,8 +33,8 @@ export class MessagesService {
       .start()
       .catch(err => console.log(err));
 
-    this.hubConnection.on('ReceiveMessageThread', (messages: MessageDto[]) => {
-      this.messageThreadSource.next(messages);
+    this.hubConnection.on('ReceiveMessageThread', (pagedList: PagedList<MessageDto>) => {
+      this.messageThreadSource.next(pagedList.items);
     });
 
     this.hubConnection.on('NewMessage', (message: MessageDto) => {
@@ -58,11 +58,12 @@ export class MessagesService {
     return this.httpClient.get<PagedList<MessageDto>>(`${this.apiUrl}/messages`, { params });
   }
 
-  public getMessageThread(id: string): Observable<MessageDto[]> {
-    return this.httpClient.get<MessageDto[]>(`${this.apiUrl}/messages/thread/${id}`);
+  public getMessagesBetweenTwoUsers(id: string): Observable<PagedList<MessageDto>> {
+    const params = new HttpParams().set('recipientId', id);
+    return this.httpClient.get<PagedList<MessageDto>>(`${this.apiUrl}/messages/get-messages-between-participants`, { params });
   }
 
-  public async sendMessage(recipientId: string, content: string): Promise<MessageDto> {
+  public async sendMessageBetweenParticipants(recipientId: string, content: string): Promise<MessageDto> {
     // return this.httpClient.post<MessageDto>(`${this.apiUrl}/messages`, { recipientId, content });
 
     // return the Promise

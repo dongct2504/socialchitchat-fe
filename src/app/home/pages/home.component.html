@@ -1,0 +1,75 @@
+<ng-container *ngIf="users && userFollows">
+    <div class="mb-4 mt-3">
+        <h2>Các thành viên</h2>
+    </div>
+
+    <div class="mb-3">
+        <form 
+            [formGroup]="filterForm" 
+            (ngSubmit)="filter()" 
+            class="d-sm-flex align-items-center flex-wrap mb-3"
+        >
+            <div class="d-flex align-items-center me-3 mb-2">
+                <label class="form-label me-2" for="minAge">Tuổi từ:</label>
+                <input 
+                    type="number" 
+                    id="minAge"
+                    formControlName="minAge" 
+                    class="form-control" 
+                    style="width: 70px;" />
+            </div>
+        
+            <div class="d-flex align-items-center me-3 mb-2">
+                <label class="form-label me-2" for="maxAge">Đến:</label>
+                <input 
+                    type="number" 
+                    id="maxAge" 
+                    formControlName="maxAge" 
+                    class="form-control" 
+                    style="width: 70px;" />
+            </div>
+        
+            <div class="d-flex align-items-center me-3 mb-2">
+                <label class="form-label me-2" for="gender">Giới tính:</label>
+                <select id="gender" formControlName="gender" class="form-select" style="width: auto;">
+                    <option *ngFor="let gender of genderOptions" [value]="gender.value">
+                        {{gender.display}}
+                    </option>
+                </select>
+            </div>
+
+            <div class="d-flex align-items-center me-3 mb-2">
+                <label class="form-label me-2" for="sortBy">Sắp xếp theo:</label>
+                <select id="sortBy" formControlName="sortBy" class="form-select" style="width: auto;">
+                    <option *ngFor="let sortBy of sortByOptions" [value]="sortBy.value">
+                        {{sortBy.display}}
+                    </option>
+                </select>
+            </div>
+        
+            <div class="d-flex align-items-center mb-2">
+                <button type="submit" class="btn btn-primary me-2">Lọc</button>
+                <button class="btn btn-secondary" (click)="resetFilter()">Đặt lại</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <ng-container *ngFor="let user of users">
+            <div class="col-lg-2 col-md-4 col-6">
+                <app-user-card 
+                    [user]="user" 
+                    [userFollows]="userFollows"
+                    (followUnfollowEmitter)="getAllUserFollowing()"
+                >
+                </app-user-card>
+            </div>
+        </ng-container>
+    </div>
+
+    <app-paging-footer
+        [totalRecords]="totalRecords"
+        [itemPerPage]="userParams.pageSize"
+        (pageEventEmitter)="onPageChanged($event)">
+    </app-paging-footer>
+</ng-container>

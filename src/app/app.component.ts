@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenService } from './authen/authen.service';
-import { PresenceService } from './presence/presence.service';
+import { PresenceService } from './presence/services/presence.service';
 import { AuthenticationDto } from './shared/models/authenticationDtos/authenticationDto';
+import { AuthenService } from './authen/services/authen.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,7 @@ import { AuthenticationDto } from './shared/models/authenticationDtos/authentica
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'Dating Love';
+  title = 'Social Chit Chat';
 
   constructor(private authenService: AuthenService, private presenceSrvice: PresenceService) {
   }

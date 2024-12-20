@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { WelcomeComponent } from './welcome/welcome.component';
+import { WelcomeComponent } from './welcome/pages/welcome.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { NotfoundComponent } from './core/errors/notfound/notfound.component';
 import { InternalServerErrorComponent } from './core/errors/internal-server-error/internal-server-error.component';
@@ -33,15 +33,20 @@ const routes: Routes = [
     loadChildren: () => import('./search/search.module').then(mod => mod.SearchModule)
   },
   {
-    path: 'liked',
+    path: 'follow',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./liked/liked.module').then(mod => mod.LikedModule)
+    loadChildren: () => import('./follow/follow.module').then(mod => mod.FollowModule)
   },
   {
     path: 'messages',
     canActivate: [AuthGuard],
     loadChildren: () => import('./messages/messages.module').then(mod => mod.MessagesModule)
   },
+  // {
+  //   path: 'group-chats',
+  //   canActivate: [AuthGuard],
+  //   loadChildren: () => import('./group-chats/group-chats.module').then(mod => mod.GroupChatsModule)
+  // },
   {
     path: 'profile',
     canActivate: [AuthGuard],

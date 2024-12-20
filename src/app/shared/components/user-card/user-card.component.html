@@ -22,8 +22,8 @@
             </button>
             <button 
                 class="btn btn-secondary"
-                [ngClass]="{'btn-warning': isUserLiked(user)}"
-                (click)="updateLike(user)"
+                [ngClass]="{'btn-warning': isUserFollowed(user)}"
+                (click)="updateFollow(user)"
             >
                 <fa-icon [icon]="faHeart"></fa-icon>
             </button>

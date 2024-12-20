@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AppUserDto } from '../../models/appUserDtos/appUserDto';
-import { LikeDto } from '../../models/appUserLikeDtos/likeDto';
-import { UserService } from 'src/app/home/user.service';
+import { FollowDto } from '../../models/followDtos/followDto';
 import { ToastrService } from 'ngx-toastr';
 import { faEnvelope, faHeart, faUser } from '@fortawesome/free-solid-svg-icons';
-import { PresenceService } from 'src/app/presence/presence.service';
+import { PresenceService } from 'src/app/presence/services/presence.service';
+import { UserService } from 'src/app/home/services/user.service';
 
 @Component({
   selector: 'app-user-card',
@@ -13,9 +13,9 @@ import { PresenceService } from 'src/app/presence/presence.service';
 })
 export class UserCardComponent implements OnInit {
   @Input() user?: AppUserDto;
-  @Input() userLikes?: LikeDto[];
+  @Input() userFollows?: FollowDto[];
 
-  @Output() likeUnlikeEmitter = new EventEmitter<void>();
+  @Output() followUnfollowEmitter = new EventEmitter<void>();
 
   faUser = faUser;
   faHeart = faHeart;
@@ -31,19 +31,19 @@ export class UserCardComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  isUserLiked(user: AppUserDto): boolean {
-    return this.userLikes?.some(likedUser => likedUser.userId === user.id) || false;
+  isUserFollowed(user: AppUserDto): boolean {
+    return Array.isArray(this.userFollows) && this.userFollows.some(followedUser => followedUser.userId === user.id) || false;
   }
 
-  updateLike(user: AppUserDto) {
-    this.userService.updateLike(user.id).subscribe((isLike) => {
-      if (isLike !== null && isLike !== undefined) {
-        if (isLike) {
-          this.toastr.success(`Bạn đã like ${user.nickname}`);
+  updateFollow(user: AppUserDto) {
+    this.userService.updateFollow(user.id).subscribe((isFollow) => {
+      if (isFollow !== null && isFollow !== undefined) {
+        if (isFollow) {
+          this.toastr.success(`Bạn đã follow ${user.nickname}`);
         } else {
-          this.toastr.info(`Bạn đã bỏ like ${user.nickname}`);
+          this.toastr.info(`Bạn đã unfollow ${user.nickname}`);
         }
-        this.likeUnlikeEmitter.emit();
+        this.followUnfollowEmitter.emit();
       }
     });
   }

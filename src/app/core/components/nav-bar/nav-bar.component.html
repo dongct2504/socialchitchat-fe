@@ -3,13 +3,13 @@
         <ng-container *ngIf="(currentUser$ | async) === null">
             <a class="navbar-brand d-flex align-items-center" routerLink="/">
                 <img src="/assets/images/logo.png" alt="logo" class="logo me-2">
-                <span class="blog-header-logo">Dating Love</span>
+                <span class="blog-header-logo">Social Chit Chat</span>
             </a>
         </ng-container>
         <ng-container *ngIf="currentUser$ | async">
             <a class="navbar-brand d-flex align-items-center" routerLink="/home">
                 <img src="/assets/images/logo.png" alt="logo" class="logo me-2">
-                <span class="blog-header-logo">Dating Love</span>
+                <span class="blog-header-logo">Social Chit Chat</span>
             </a>
         </ng-container>
 
@@ -34,8 +34,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" routerLink="/liked" routerLinkActive="active">
-                                <fa-icon [icon]="faThumsbup"></fa-icon> Đã thích
+                            <a class="nav-link" routerLink="/follow" routerLinkActive="active">
+                                <fa-icon [icon]="faThumsbup"></fa-icon> Đã theo dõi
                             </a>
                         </li>
                         <li class="nav-item position-relative">
@@ -51,11 +51,11 @@
                                 Admin
                             </a>
                         </li>
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" routerLink="test-errors" routerLinkActive="active">
                                 Test Errors
                             </a>
-                        </li> -->
+                        </li>
                     </ul>
                 </div>
             </ng-container>
