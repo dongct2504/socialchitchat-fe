@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LikedComponent } from './pages/liked.component';
+import { FollowComponent } from './pages/follow.component';
 
 const routes: Routes = [
-  { path: '', component: LikedComponent }
+  { path: '', component: FollowComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LikedRoutingModule { }
+export class FollowRoutingModule { }

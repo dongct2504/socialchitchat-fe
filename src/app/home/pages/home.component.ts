@@ -3,10 +3,10 @@ import { AppUserDto } from '../../shared/models/appUserDtos/appUserDto';
 import { UserParams } from '../../shared/models/appUserDtos/userParams';
 import { PageSizeConstants } from '../../shared/common/pageSizeConstants';
 import { take } from 'rxjs';
-import { GenderConstants } from '../../shared/common/genderConstants';
+import { GenderEnum } from '../../shared/common/genderEnum';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SortByConstants } from '../../shared/common/sortByConstants';
-import { LikeDto } from '../../shared/models/appUserLikeDtos/likeDto';
+import { FollowDto } from '../../shared/models/followDtos/followDto';
 import { AuthenService } from '../../authen/services/authen.service';
 import { UserService } from '../services/user.service';
 
@@ -20,15 +20,15 @@ export class HomeComponent implements OnInit {
 
   users?: AppUserDto[];
   user?: AppUserDto;
-  userLikes?: LikeDto[];
+  userFollows?: FollowDto[];
 
   userParams = new UserParams();
   totalRecords = 0;
 
   genderOptions = [
-    { display: 'Nam', value: GenderConstants.male },
-    { display: 'Nữ', value: GenderConstants.female },
-    { display: 'Tất cả', value: GenderConstants.unknown }
+    { display: 'Nam', value: GenderEnum.male },
+    { display: 'Nữ', value: GenderEnum.female },
+    { display: 'Tất cả', value: GenderEnum.unknown }
   ];
 
   sortByOptions = [
@@ -54,13 +54,13 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
-    this.getAllUserLikes();
+    this.getAllUserFollowing();
     this.initForm();
   }
 
-  getAllUserLikes() {
-    this.userService.getAllUserLikes('liked').subscribe(allUserLikes => {
-      this.userLikes = allUserLikes;
+  getAllUserFollowing() {
+    this.userService.getAllFollows('following').subscribe(allUserFollows => {
+      this.userFollows = allUserFollows;
     })
   }
 
@@ -92,7 +92,7 @@ export class HomeComponent implements OnInit {
   }
 
   private getUsers() {
-    this.userService.getUsers(this.userParams).subscribe(pagedList => {
+    this.userService.search(this.userParams).subscribe(pagedList => {
       this.users = pagedList.items;
       this.totalRecords = pagedList.totalRecords;
       this.userParams.pageNumber = pagedList.pageNumber;

@@ -58,8 +58,9 @@ export class MessagesService {
     return this.httpClient.get<PagedList<MessageDto>>(`${this.apiUrl}/messages`, { params });
   }
 
-  public getGroupMessagesBetweenTwoUsers(id: string): Observable<PagedList<MessageDto>> {
-    return this.httpClient.get<PagedList<MessageDto>>(`${this.apiUrl}/group-chats/group-messages-between-two-users/${id}`);
+  public getMessagesBetweenTwoUsers(id: string): Observable<PagedList<MessageDto>> {
+    const params = new HttpParams().set('recipientId', id);
+    return this.httpClient.get<PagedList<MessageDto>>(`${this.apiUrl}/messages/get-messages-between-participants`, { params });
   }
 
   public async sendMessageBetweenParticipants(recipientId: string, content: string): Promise<MessageDto> {

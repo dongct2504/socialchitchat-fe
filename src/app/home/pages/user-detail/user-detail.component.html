@@ -35,15 +35,15 @@
                 <div class="btn-group d-flex">
                     <button 
                         class="btn btn-outline-primary" 
-                        *ngIf="isUserLike === false"
-                        (click)="updateLike()"
+                        *ngIf="isUserFollow === false"
+                        (click)="updateFollow()"
                     >
                         Thích
                     </button>
                     <button 
                         class="btn btn-primary" 
-                        *ngIf="isUserLike === true"
-                        (click)="updateLike()"
+                        *ngIf="isUserFollow === true"
+                        (click)="updateFollow()"
                     >
                         Đã thích
                     </button>

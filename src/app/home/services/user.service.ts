@@ -5,8 +5,8 @@ import { AppUserDetailDto } from 'src/app/shared/models/appUserDtos/appUserDetai
 import { AppUserDto } from 'src/app/shared/models/appUserDtos/appUserDto';
 import { UpdateAppUserDto } from 'src/app/shared/models/appUserDtos/updateAppUserDto';
 import { UserParams } from 'src/app/shared/models/appUserDtos/userParams';
-import { AppUserLikeParams } from 'src/app/shared/models/appUserLikeDtos/appUserLikeParams';
-import { LikeDto } from 'src/app/shared/models/appUserLikeDtos/likeDto';
+import { FollowParams } from 'src/app/shared/models/followDtos/followParams';
+import { FollowDto } from 'src/app/shared/models/followDtos/followDto';
 import { PagedList } from 'src/app/shared/models/pagedList';
 import { environment } from 'src/environments/environment.development';
 
@@ -19,50 +19,46 @@ export class UserService {
   constructor(private httpClient: HttpClient) {
   }
 
-  public getUsers(userParams?: UserParams): Observable<PagedList<AppUserDto>> {
+  public search(userParams?: UserParams): Observable<PagedList<AppUserDto>> {
     const params = this.initUserParams(userParams);
-    return this.httpClient.get<PagedList<AppUserDto>>(`${this.apiUrl}/users`, { params });
+    return this.httpClient.get<PagedList<AppUserDto>>(`${this.apiUrl}/users/search`, { params });
   }
 
-  getById(id: string): Observable<AppUserDetailDto> {
+  public getById(id: string): Observable<AppUserDetailDto> {
     return this.httpClient.get<AppUserDetailDto>(`${this.apiUrl}/users/${id}`);
   }
 
-  getByUsername(username: string): Observable<AppUserDetailDto> {
+  public getByUsername(username: string): Observable<AppUserDetailDto> {
     return this.httpClient.get<AppUserDetailDto>(`${this.apiUrl}/users/username/${username}`);
   }
 
-  search(name: string): Observable<AppUserDto[]> {
-    return this.httpClient.get<AppUserDto[]>(`${this.apiUrl}/users/search`, { params: { name } });
-  }
-
-  update(id: string, updateAppUserDto: UpdateAppUserDto) {
+  public update(id: string, updateAppUserDto: UpdateAppUserDto) {
     return this.httpClient.put(`${this.apiUrl}/users/${id}`, updateAppUserDto);
   }
 
-  setMainPicture(pictureId: string) {
+  public setMainPicture(pictureId: string) {
     return this.httpClient.put(`${this.apiUrl}/pictures/set-main-picture/${pictureId}`, {});
   }
 
-  removePicture(pictureId: string) {
+  public removePicture(pictureId: string) {
     return this.httpClient.delete(`${this.apiUrl}/pictures/remove-picture/${pictureId}`);
   }
 
-  getAllUserLikes(predicate: string): Observable<LikeDto[]> {
-    return this.httpClient.get<LikeDto[]>(`${this.apiUrl}/likes`, { params: { predicate } });
+  public getAllFollows(predicate: string): Observable<FollowDto[]> {
+    return this.httpClient.get<FollowDto[]>(`${this.apiUrl}/follow`, { params: { predicate } });
   }
 
-  getUserLikes(appUserLikeParams: AppUserLikeParams): Observable<PagedList<LikeDto>> {
-    const params = this.initAppUserLikeParams(appUserLikeParams);
-    return this.httpClient.get<PagedList<LikeDto>>(`${this.apiUrl}/likes/getUserLikes`, { params });
+  public getFollows(appUserFollowParams: FollowParams): Observable<PagedList<FollowDto>> {
+    const params = this.initAppUserFollowParams(appUserFollowParams);
+    return this.httpClient.get<PagedList<FollowDto>>(`${this.apiUrl}/follow/get-follows`, { params });
   }
 
-  isUserLiked(id: string): Observable<boolean> {
-    return this.httpClient.get<boolean>(`${this.apiUrl}/likes/${id}`);
+  public isUserFollowed(id: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.apiUrl}/follow/${id}`);
   }
 
-  updateLike(id: string): Observable<boolean> {
-    return this.httpClient.post<boolean>(`${this.apiUrl}/likes/${id}`, {});
+  public updateFollow(id: string): Observable<boolean> {
+    return this.httpClient.post<boolean>(`${this.apiUrl}/follow/${id}`, {});
   }
 
   private initUserParams(userParams?: UserParams): HttpParams {
@@ -72,8 +68,11 @@ export class UserService {
       return params;
     }
 
-    if (userParams.gender != null && userParams.gender !== '') {
+    if (userParams.gender) {
       params = params.append('gender', userParams.gender);
+    }
+    if (userParams.name) {
+      params = params.append('name', userParams.name);
     }
 
     params = params.append('maxAge', userParams.maxAge.toString());
@@ -87,17 +86,17 @@ export class UserService {
     return params;
   }
 
-  private initAppUserLikeParams(appUserLikeParams?: AppUserLikeParams): HttpParams {
+  private initAppUserFollowParams(appUserFollowParams?: FollowParams): HttpParams {
     let params = new HttpParams();
 
-    if (!appUserLikeParams) {
+    if (!appUserFollowParams) {
       return params;
     }
 
-    params = params.append('predicate', appUserLikeParams.predicate);
+    params = params.append('predicate', appUserFollowParams.predicate);
 
-    params = params.append('pageNumber', appUserLikeParams.pageNumber.toString());
-    params = params.append('pageSize', appUserLikeParams.pageSize.toString());
+    params = params.append('pageNumber', appUserFollowParams.pageNumber.toString());
+    params = params.append('pageSize', appUserFollowParams.pageSize.toString());
 
     return params;
   }

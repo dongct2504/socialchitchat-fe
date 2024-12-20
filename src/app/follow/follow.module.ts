@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { LikedRoutingModule } from './liked-routing.module';
-import { LikedComponent } from './pages/liked.component';
+import { FollowRoutingModule } from './follow-routing.module';
+import { FollowComponent } from './pages/follow.component';
 import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
   declarations: [
-    LikedComponent
+    FollowComponent
   ],
   imports: [
     CommonModule,
-    LikedRoutingModule,
+    FollowRoutingModule,
     SharedModule
   ]
 })
-export class LikedModule { }
+export class FollowModule { }

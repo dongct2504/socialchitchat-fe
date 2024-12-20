@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { AppUserDto } from '../../shared/models/appUserDtos/appUserDto';
 import { faRefresh, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from 'src/app/home/services/user.service';
+import { UserParams } from 'src/app/shared/models/appUserDtos/userParams';
 
 @Component({
   selector: 'app-search',
@@ -36,8 +37,10 @@ export class SearchComponent implements OnInit {
     const name = this.searchForm.get('name')?.value;
     if (name) {
       this.isLoading = true;
-      this.userService.search(name).subscribe(users => {
-        this.searchResults = users;
+      const userParams = new UserParams();
+      userParams.name = name;
+      this.userService.search(userParams).subscribe(pagedList => {
+        this.searchResults = pagedList.items;
         this.isLoading = false;
       });
     }

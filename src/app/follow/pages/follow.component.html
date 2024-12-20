@@ -1,19 +1,19 @@
-<div class="text-center mt-3" *ngIf="userLikes">
-    <h2>{{appUserLikeParams.predicate === 'liked' ? 'Những người bạn đã thích' : 'Những người đã thích bạn'}}</h2>
+<div class="text-center mt-3" *ngIf="userFollows">
+    <h2>{{appUserFollowParams.predicate === 'following' ? 'Những người bạn đã theo dõi' : 'Những người đã theo dõi bạn'}}</h2>
 
     <div class="mt-3">
         <div class="d-flex justify-content-around">
-            <button class="btn btn-outline-primary" (click)="getUserLikes()">
-                Những người bạn đã thích
+            <button class="btn btn-outline-primary" (click)="getUserFollowing()">
+                Những người bạn đã theo dõi
             </button>
-            <button class="btn btn-outline-primary" (click)="getLikedByOthers()">
-                Những người đã thích bạn
+            <button class="btn btn-outline-primary" (click)="getUserFollower()">
+                Những người đã theo dõi bạn
             </button>
         </div>
 
         <div class="mt-3">
             <div class="row">
-                <div class="col-lg-2 col-md-4 col-6" *ngFor="let user of userLikes">
+                <div class="col-lg-2 col-md-4 col-6" *ngFor="let user of userFollows">
                     <div class="card mb-4" *ngIf="user">
                         <div class="card-img-wrapper" routerLink="/home/{{user.userName}}">
                             <img 
@@ -49,7 +49,7 @@
 
     <app-paging-footer
         [totalRecords]="totalRecords"
-        [itemPerPage]="appUserLikeParams.pageSize"
+        [itemPerPage]="appUserFollowParams.pageSize"
         (pageEventEmitter)="onPageChanged($event)">
     </app-paging-footer>
 </div>

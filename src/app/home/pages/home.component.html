@@ -1,4 +1,4 @@
-<ng-container *ngIf="users && userLikes">
+<ng-container *ngIf="users && userFollows">
     <div class="mb-4 mt-3">
         <h2>Các thành viên</h2>
     </div>
@@ -59,8 +59,8 @@
             <div class="col-lg-2 col-md-4 col-6">
                 <app-user-card 
                     [user]="user" 
-                    [userLikes]="userLikes"
-                    (likeUnlikeEmitter)="getAllUserLikes()"
+                    [userFollows]="userFollows"
+                    (followUnfollowEmitter)="getAllUserFollowing()"
                 >
                 </app-user-card>
             </div>

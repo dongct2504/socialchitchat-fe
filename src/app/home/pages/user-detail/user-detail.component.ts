@@ -22,7 +22,7 @@ export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   activeTab?: TabDirective;
 
   user = {} as AppUserDetailDto;
-  isUserLike: boolean = false;
+  isUserFollow: boolean = false;
 
   messages: MessageDto[] = [];
   pageNumber: number = 1;
@@ -108,15 +108,15 @@ export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  updateLike() {
-    this.userService.updateLike(this.user.id).subscribe((isLike) => {
-      if (isLike !== null && isLike !== undefined) {
-        if (isLike) {
-          this.toastr.success(`Bạn đã like ${this.user.nickname}`);
+  updateFollow() {
+    this.userService.updateFollow(this.user.id).subscribe((isFollow) => {
+      if (isFollow !== null && isFollow !== undefined) {
+        if (isFollow) {
+          this.toastr.success(`Bạn đã follow ${this.user.nickname}`);
         } else {
-          this.toastr.info(`Bạn đã bỏ like ${this.user.nickname}`);
+          this.toastr.info(`Bạn đã unfollow ${this.user.nickname}`);
         }
-        this.checkUserLike();
+        this.checkUserFollow();
       }
     });
   }
@@ -126,7 +126,7 @@ export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userService.getByUsername(userName).subscribe(user => {
       this.user = user;
       this.galleryImages = this.getImages();
-      this.checkUserLike();
+      this.checkUserFollow();
     });
   }
 
@@ -135,7 +135,7 @@ export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
       return;
     }
 
-    this.messagesService.getGroupMessagesBetweenTwoUsers(this.user.id).subscribe(pagedList => {
+    this.messagesService.getMessagesBetweenTwoUsers(this.user.id).subscribe(pagedList => {
       this.messages = pagedList.items;
       this.pageNumber = pagedList.pageNumber
     })
@@ -143,10 +143,10 @@ export class UserDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     this.messagesService.createHubConnection(token, this.user.id);
   }
 
-  private checkUserLike() {
+  private checkUserFollow() {
     if (this.user) {
-      this.userService.isUserLiked(this.user.id).subscribe(isUserLike => {
-        this.isUserLike = isUserLike;
+      this.userService.isUserFollowed(this.user.id).subscribe(isUserFollow => {
+        this.isUserFollow = isUserFollow;
       });
     }
   }

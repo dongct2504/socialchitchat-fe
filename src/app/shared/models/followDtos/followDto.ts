@@ -1,4 +1,4 @@
-export interface LikeDto {
+export interface FollowDto {
     userId: string;
     userName: string;
     nickname: string;

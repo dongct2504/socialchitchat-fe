@@ -33,14 +33,19 @@ const routes: Routes = [
     loadChildren: () => import('./search/search.module').then(mod => mod.SearchModule)
   },
   {
-    path: 'liked',
+    path: 'follow',
     canActivate: [AuthGuard],
-    loadChildren: () => import('./liked/liked.module').then(mod => mod.LikedModule)
+    loadChildren: () => import('./follow/follow.module').then(mod => mod.FollowModule)
+  },
+  {
+    path: 'messages',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./messages/messages.module').then(mod => mod.MessagesModule)
   },
   // {
-  //   path: 'messages',
+  //   path: 'group-chats',
   //   canActivate: [AuthGuard],
-  //   loadChildren: () => import('./messages/messages.module').then(mod => mod.MessagesModule)
+  //   loadChildren: () => import('./group-chats/group-chats.module').then(mod => mod.GroupChatsModule)
   // },
   {
     path: 'profile',
