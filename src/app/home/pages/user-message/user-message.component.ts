@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MessagesService } from 'src/app/messages/messages.service';
+import { MessagesService } from 'src/app/messages/services/messages.service';
 import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
 
 @Component({

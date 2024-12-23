@@ -45,8 +45,8 @@ export class PresenceService {
       this.onlineUsersSource.next(userIds);
     });
 
-    this.hubConnection.on('NewMessageReceived', ({ senderId, senderNickname }) => {
-      this.toastr.info(`${senderNickname} đã gửi cho bạn tin nhắn!`);
+    this.hubConnection.on('NewMessageReceived', ({ senderId, senderNickName }) => {
+      this.toastr.info(`${senderNickName} đã gửi cho bạn tin nhắn!`);
     })
   }
 

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MessageDto } from '../shared/models/messageDtos/messageDto';
-import { MessageParams } from '../shared/models/messageDtos/messageParams';
-import { PageSizeConstants } from '../shared/common/pageSizeConstants';
-import { MessagesService } from './messages.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { PageSizeConstants } from 'src/app/shared/common/pageSizeConstants';
+import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
+import { MessageParams } from 'src/app/shared/models/messageDtos/messageParams';
+import { MessagesService } from '../services/messages.service';
 
 @Component({
   selector: 'app-messages',

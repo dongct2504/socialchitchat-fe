@@ -2,10 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, take } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { MessageDto } from '../shared/models/messageDtos/messageDto';
-import { MessageParams } from '../shared/models/messageDtos/messageParams';
-import { PagedList } from '../shared/models/pagedList';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
+import { PagedList } from 'src/app/shared/models/pagedList';
+import { MessageParams } from 'src/app/shared/models/messageDtos/messageParams';
 
 @Injectable({
   providedIn: 'root'

@@ -8,8 +8,8 @@ import { PresenceService } from 'src/app/presence/services/presence.service';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { AuthenService } from 'src/app/authen/services/authen.service';
 import { UserService } from '../../services/user.service';
-import { MessagesService } from 'src/app/messages/messages.service';
 import { MessageDto } from 'src/app/shared/models/messageDtos/messageDto';
+import { MessagesService } from 'src/app/messages/services/messages.service';
 
 @Component({
   selector: 'app-user-detail',
