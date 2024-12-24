@@ -81,7 +81,7 @@ export class PictureEditComponent {
   }
 
   setMainPicture(picture: PictureDto) {
-    this.userService.setMainPicture(picture.pictureId).subscribe(() => {
+    this.userService.setMainPicture(picture.id).subscribe(() => {
       // set main picture in navbar
       if (this.authenUser) {
         this.authenUser.profilePictureUrl = picture.imageUrl;
@@ -94,7 +94,7 @@ export class PictureEditComponent {
           if (p.isMain) {
             p.isMain = false;
           }
-          if (p.pictureId === picture.pictureId) {
+          if (p.id === picture.id) {
             p.isMain = true;
           }
         });
@@ -103,9 +103,9 @@ export class PictureEditComponent {
   }
 
   removePicture(picture: PictureDto) {
-    this.userService.removePicture(picture.pictureId).subscribe(() => {
+    this.userService.removePicture(picture.id).subscribe(() => {
       if (this.user && this.user.pictures) {
-        this.user.pictures = this.user.pictures.filter(p => p.pictureId !== picture.pictureId);
+        this.user.pictures = this.user.pictures.filter(p => p.id !== picture.id);
       }
     });
   }

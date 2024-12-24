@@ -1,5 +1,5 @@
 export interface PictureDto {
-    pictureId: string;
+    id: string;
     localUserId: string;
     imageUrl: string;
     isMain: boolean;
